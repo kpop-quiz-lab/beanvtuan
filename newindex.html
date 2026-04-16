@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>假如你是K-pop现役女团</title>
+<title>假如你是K-pop女团</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0e0e0e;--bg2:#161616;--bg3:#1e1e1e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0ece4;--muted:#888;--accent:#e8c97a;--accent2:#c85a5a;--accent3:#7ab8e8;}
@@ -266,9 +266,9 @@ const QUESTIONS_POOL = [
     dim:3,
     text:"如果明天就要回归初舞台了，你今晚在干嘛？",
     options:[
-      {text:"早早敷上面膜睡觉，明天必须保证绝佳的皮肤状态和不浮粉。",score:0},
-      {text:"听点轻音乐放松心情，告诉自己「随便玩玩享受舞台就好」。",score:2},
-      {text:"反复观看彩排录像，疯狂做表情管理的笔记。",score:5},
+      {text:"早早敷上面膜睡觉，明天必须保证绝佳的皮肤状态和不浮肿。",score:0},
+      {text:"听点音乐放松心情，告诉自己「随便玩玩享受舞台就好」。",score:2},
+      {text:"反复观看彩排录像，研究如何更好的表情管理。",score:5},
       {text:"在练习室死磕最后一个高音，不到完美绝不睡觉。",score:9},
     ]
   },
@@ -473,7 +473,7 @@ function showResult(winners,userLevels){
   document.getElementById('shareBtn').onclick=function(){
     const names=winners.map(w=>w.name).join(' × ');
     const destinyText=isMissA?'托飞机型':mainD;
-    const text=`【假如你是K-pop现役女团】\n我是：${names}\n命运：${destinyText}\n\n你是哪个团？`;
+    const text=`【假如你是K-pop女团】\n我是：${names}\n命运：${destinyText}\n\n你是哪个团？`;
     navigator.clipboard.writeText(text).then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制结果文案',2000);});
   };
 }
@@ -492,7 +492,7 @@ function resetQuiz(){startQuiz();}
 // 或者直接用下面的方式自动创建
 (function(){
   // 将 YOUR_NAMESPACE 改成你的 GitHub 用户名，YOUR_KEY 改成你想要的 key 名
-  const NAMESPACE = 'YOUR_GITHUB_USERNAME';
+  const NAMESPACE = 'chq10chh';
   const KEY = 'kpop-test-visits';
   fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
     .then(r=>r.json())
