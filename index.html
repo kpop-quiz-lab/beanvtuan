@@ -96,7 +96,7 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
 
 <div id="intro" class="screen active">
   <p class="intro-eyebrow">重生之我在南韩做女团</p>
-  <h1 class="intro-title">你是哪个<br><em>K-pop 女团</em></h1>
+  <h1 class="intro-title">你适合哪个<br><em>K-pop女团模式</em></h1>
   <p class="intro-sub">12道灵魂拷问<br>测测你投胎能进哪个南韩女团</p>
   <button class="btn-start" onclick="startQuiz()">开始测试</button>
   <p class="intro-note">约 3～4 分钟完成</p>
@@ -161,7 +161,7 @@ const QUESTIONS_POOL = [
   // 社交磁场 0
   {
     dim:0,
-    text:"当你受到委屈时，你身边人们的第一反应通常是？",
+    text:"当你受到委屈时，你希望身边人们的第一反应是？",
     options:[
       {text:"默默陪着你但不多问，等你情绪自己过去。",score:0},
       {text:"帮你复盘整件事的逻辑，最好下次怎么赢回来。",score:2},
@@ -194,7 +194,7 @@ const QUESTIONS_POOL = [
     dim:1,
     text:"公司让你定下一次回归的 MV 概念，你更倾向哪个？",
     options:[
-      {text:"废弃医院、血浆，色调暗沉像素差，看十遍都看不懂需要解析的剧情。",score:0},
+      {text:"废弃医院、血浆，色调暗沉像素差，隐喻太多十遍都看不懂需要解析的那种高大上剧情。",score:0},
       {text:"千禧年 Y2K 街头风，用复古 DV 拍摄，主打一个随意慵懒。",score:2},
       {text:"重金砸出来的豪车、大牌高定，老娘天下最美最贵的财阀风。",score:5},
       {text:"校园制服元气夏日风，阳间旋律，大家都能跟着跳的魔性编曲。",score:9},
@@ -214,7 +214,7 @@ const QUESTIONS_POOL = [
     dim:1,
     text:"你的歌单里最多，你最爱听的是哪些类型的歌曲？",
     options:[
-      {text:"很少人听过的地下乐队、前摇或实验电子乐以及优雅的古典乐。",score:0},
+      {text:"小众b来了，全是很少人听过的地下乐队、前摇或实验电子乐以及优雅的古典乐。",score:0},
       {text:"极具氛围感的爵士/r&b/嘻哈/独立音乐，或者某些冷门电影的原声带。",score:2},
       {text:"华语乐坛的经典比如周王陶林，四大三小，香港天王天后，或者世界各地的大 diva 们。",score:5},
       {text:"最近排行榜最火的歌，讲究旋律一定要朗朗上口。",score:9},
@@ -227,7 +227,7 @@ const QUESTIONS_POOL = [
     options:[
       {text:"负负得正，正正也得正，无论跟谁组反正横竖都是我不亏，欣然接受了。",score:0},
       {text:"可以是可以，只是我想有队友选择权，选我喜欢的走强强联合的概念，合力把 IP 做大。",score:2},
-      {text:"骑驴找马中，应要我上的话我会参加，但只当这是自己 solo 的试验场，不会付出太多心力。",score:5},
+      {text:"骑驴找马中，硬要我上的话我会参加，但只当这是自己 solo 的试验场，不会付出太多心力。",score:5},
       {text:"告诉公司我独美，不想扶贫也不想准备小分队耽误我 solo。",score:9},
     ]
   },
@@ -269,7 +269,7 @@ const QUESTIONS_POOL = [
       {text:"早早敷上面膜睡觉，明天必须保证绝佳的皮肤状态和不浮肿。",score:0},
       {text:"听点音乐放松心情，告诉自己「随便玩玩享受舞台就好」。",score:2},
       {text:"反复观看彩排录像，研究如何更好的表情管理。",score:5},
-      {text:"在练习室死磕最后一个高音，不到完美绝不睡觉。",score:9},
+      {text:"在练习室死磕高音和舞蹈，不到完美绝不睡觉。",score:9},
     ]
   },
   {
@@ -279,7 +279,7 @@ const QUESTIONS_POOL = [
       {text:"全程充当背景板不说话，只要有几个绝美的发呆特写镜头，就能上热搜营销「清冷神颜」。",score:0},
       {text:"靠无厘头的废话和四次元人设，成为节目的「造梗机器」和 sense 担当。",score:2},
       {text:"游戏玩着玩着就入戏了，靠态度吸粉。",score:5},
-      {text:"抓住一切机会努力表现，怎样水花大怎样来，并才艺展示自己的业务能力。",score:9},
+      {text:"抓住一切机会努力表现，怎样水花大怎样来，才艺展示自己的业务能力。",score:9},
     ]
   },
 ]
@@ -493,7 +493,7 @@ function showResult(winners,userLevels){
   document.getElementById('shareBtn').onclick=function(){
     const names=winners.map(w=>w.name).join(' × ');
     const destinyText=isMissA?'托飞机型':mainD;
-    const text=`【你的人生拿了哪个K-pop女团剧本？】\n我是：${names}\n命运：${destinyText}\n\n你是哪个团？`;
+    const text=`【你适合哪个K-pop女团的生存方式？】\n我是：${names}\n命运：${destinyText}\n\n你是哪个团？`;
     navigator.clipboard.writeText(text).then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制结果文案',2000);});
   };
 }
@@ -510,7 +510,7 @@ function buildRadar(vals, animate) {
   const n = 4;
   // 4轴角度：上/右下/左下/左上，顺时针从顶部开始
   const angles = [
-    -Math.PI / 2,           // 顶 (撕逼体制)
+    -Math.PI / 2,           // 顶 (秒表)
     -Math.PI / 2 + Math.PI * 2 / 4,  // 右 (大众)
     -Math.PI / 2 + Math.PI * 4 / 4,  // 底 (单核拖飞机)
     -Math.PI / 2 + Math.PI * 6 / 4,  // 左 (靠硬实力)
@@ -525,9 +525,9 @@ function buildRadar(vals, animate) {
 
   // 标签文字（两行：中文 + 英文）
   const labels = [
-    {zh:'撕逼体制', en:'Social Field'},
+    {zh:'秒表', en:'Social Field'},
     {zh:'大众', en:'Aesthetics'},
-    {zh:'单核托飞机', en:'Team Mode'},
+    {zh:'拖飞机', en:'Team Mode'},
     {zh:'靠硬实力', en:'Core Strength'},
   ];
 
