@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>假如你是K-pop女团</title>
+<title>南韩女团投胎指南</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0e0e0e;--bg2:#161616;--bg3:#1e1e1e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0ece4;--muted:#888;--accent:#e8c97a;--accent2:#c85a5a;--accent3:#7ab8e8;}
@@ -63,43 +63,43 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
 .multi-card-tag{font-size:12px;color:var(--muted);margin-bottom:0.8rem;}
 .multi-card-verdict{font-size:13px;line-height:1.85;color:rgba(240,236,228,0.8);}
 .section-label{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;}
-.dims-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;}
-.dim-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.dim-row:last-child{margin-bottom:0;}
-.dim-name{font-size:11px;color:var(--muted);width:56px;min-width:56px;text-align:right;}
-.dim-inner{flex:1;}
-.dim-track{height:3px;background:rgba(255,255,255,0.06);margin-bottom:3px;position:relative;}
-.dim-fill{position:absolute;top:0;left:0;height:3px;background:var(--accent);transition:width 0.8s ease;}
-.dim-poles{display:flex;justify-content:space-between;font-size:9px;color:rgba(136,136,136,0.5);}
+.dims-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;display:flex;flex-direction:column;align-items:center;}
+.radar-wrap{width:100%;max-width:320px;margin:0 auto;}
+.radar-wrap svg{width:100%;height:auto;display:block;}
+.radar-labels{position:relative;}
 .destiny-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;cursor:pointer;}
 .destiny-card-header{display:flex;justify-content:space-between;align-items:center;}
 .destiny-main{font-size:16px;font-weight:700;color:var(--accent);letter-spacing:1px;}
 .destiny-toggle{font-size:11px;color:var(--muted);}
 .destiny-detail{margin-top:1.2rem;display:none;border-top:1px solid var(--border);padding-top:1.2rem;}
 .destiny-detail.open{display:block;}
-.destiny-tag-list{display:flex;flex-direction:column;gap:1rem;margin-top:1.2rem;}
+.destiny-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.destiny-bar-label{font-size:11px;color:var(--muted);width:68px;min-width:68px;text-align:right;}
+.destiny-bar-track{flex:1;height:3px;background:rgba(255,255,255,0.06);}
+.destiny-bar-fill{height:100%;background:var(--accent3);transition:width 0.8s ease;}
+.destiny-bar-val{font-size:10px;color:var(--muted);width:28px;text-align:right;}
+.destiny-review{margin-top:1rem;font-size:13px;line-height:1.85;color:rgba(240,236,228,0.75);}
+.destiny-tag-list{display:flex;flex-direction:column;gap:1rem;margin-top:0.2rem;}
 .destiny-tag-item{border-top:1px solid var(--border);padding-top:1rem;}
 .destiny-tag-item:first-child{border-top:none;padding-top:0;}
-.destiny-tag-name{font-size:11px;letter-spacing:2px;color:var(--accent3);margin-bottom:0.4rem;text-transform:uppercase;}
+.destiny-tag-name{font-size:11px;letter-spacing:2px;color:var(--accent3);margin-bottom:0.4rem;text-transform:uppercase;font-weight:500;}
 .destiny-tag-desc{font-size:13px;line-height:1.85;color:rgba(240,236,228,0.75);}
 .divider{height:1px;background:var(--border);margin:1.5rem 0;}
 .btn-share{display:block;width:100%;margin-top:1rem;background:none;border:1px solid var(--accent);padding:13px;font-size:13px;cursor:pointer;color:var(--accent);font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;letter-spacing:2px;}
 .btn-share:hover{background:var(--accent);color:#0e0e0e;}
 .btn-retry{display:block;width:100%;margin-top:8px;background:none;border:1px solid var(--border);padding:13px;font-size:13px;cursor:pointer;color:var(--muted);font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;letter-spacing:1px;}
 .btn-retry:hover{border-color:var(--border2);color:var(--text);}
-.intro-counter{margin-top:0.6rem;font-size:11px;color:rgba(136,136,136,0.5);letter-spacing:1px;}
 @media(max-width:480px){#quiz,#result{padding:1.5rem 1rem 3rem;}}
 </style>
 </head>
 <body>
 
 <div id="intro" class="screen active">
-  <p class="intro-eyebrow">K-pop 女团人格测试</p>
-  <h1 class="intro-title">假如你是<br><em>K-pop 现役女团</em></h1>
-  <p class="intro-sub">12道娱乐圈情境题<br>精准匹配你的女团命运轨迹</p>
+  <p class="intro-eyebrow">重生之我在南韩做女团</p>
+  <h1 class="intro-title">你是哪个<br><em>K-pop 女团</em></h1>
+  <p class="intro-sub">12道灵魂拷问<br>测测你投胎能进哪个南韩女团</p>
   <button class="btn-start" onclick="startQuiz()">开始测试</button>
   <p class="intro-note">约 3～4 分钟完成</p>
-  <p class="intro-counter" id="visitCounter"></p>
 </div>
 
 <div id="quiz" class="screen">
@@ -142,124 +142,124 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
 </div>
 
 <script>
-const DIM_NAMES  = ["粉圈生态","风格概念","人气结构","吸粉方式"];
-const DIM_LOW    = ["和谐","小众","均衡","氛围感"];
-const DIM_HIGH   = ["秒表","大众","拖飞机","硬实力"];
+const DIM_NAMES  = ["社交磁场","审美倾向","团队模式","核心竞争力"];
+const DIM_LOW    = ["佛系边界感","极致小众","极致端水","天生磁场"];
+const DIM_HIGH   = ["撕逼体质","极致大众","单核拖飞机","硬核实力"];
 const DESTINY_NAMES = ["海外开花","高国民度","白月光","命硬","特立独行"];
 
 const DESTINY_REVIEWS = {
-  海外开花:"你的人生地图上，家门口的路一直修不好，但出了国反而一路开绿灯。本土被嫌弃，海外被封神，完美诠释墙内开花墙外香，东边不亮西边亮。",
-  高国民度:"连你妈的广场舞同伴都认识你。这条路走的是规模效应。先用大营销打穿下沉市场，再靠国民度反向收割高端资源。简单粗暴，但有效。",
-  白月光:"你的名字永远出现在「如果当年没解散/没出走就好了」的祭文里。比白月光更虐心的是死去的白月光，这套剧本古今中外通杀。",
-  命硬:"天雷打不死，黑料压不垮，争议绕不过，但你就是他妈的还在这里。职场里你是那种被同事坑、被领导架空、被媒体黑，年末KPI还是第一的蟑螂本螂。",
-  特立独行:"你的存在本身就是对「按规矩来」的冒犯。你不是不会媚俗，不走大众对女团的刻板印象另辟蹊径，竟然也开出了一条路。"
+  海外开花:"在你的人生地图中，家门口的路一直修不好，但一出国反而一路开绿灯。本土被嫌弃，海外被封神，完美诠释了南韩女团的「墙内开花墙外香，东边不亮西边亮」。",
+  高国民度:"你火到连南韩大妈的广场舞同伴都认识你。这条路走的是绝对的规模效应。先用大营销打穿下沉市场，再靠国民度反向收割高端代言资源。简单粗暴，但吸金无敌。",
+  白月光:"你的名字永远出现在饭圈「如果当年没解散/没出走就好了」的祭文里。在娱乐圈，比白月光更虐心的是死去的白月光，你靠这套虐粉剧本做到了古今中外通杀。",
+  命硬:"天雷打不死，黑料压不垮，恶评绕不过，但你就是他妈的还在这里。你是南韩娱乐圈那种被对家坑、被公司防爆、被媒体黑，年末大赏却偏偏还能拿第一的绝地蟑螂。",
+  特立独行:"你的存在本身就是对南韩「爱豆流水线规矩」的冒犯。你不是不会媚俗，你不走大众对女团的甜美刻板印象另辟蹊径，竟然也硬生生杀出了一条血路。"
 };
 
 // 12道题打乱顺序（dim标注对应哪个维度）
-// 维度：0=粉圈 1=风格 2=人气 3=吸粉
+// 维度：0=社交磁场 1=审美倾向 2=团队模式 3=核心竞争力
 const QUESTIONS_POOL = [
-  // 粉圈 0
+  // 社交磁场 0
   {
     dim:0,
-    text:"你的直拍里有一个小失误，对家粉趁机发黑帖群嘲，你觉得自己的粉圈通常会怎么反击？",
+    text:"当你受到委屈时，你身边人们的第一反应通常是？",
     options:[
-      {text:"相信你的路人盘，随便对家怎么跳脚，反正歌出圈就行。",score:0},
-      {text:"整理你以前的神级舞台和澄清长图，在评论区挽尊控评。",score:2},
-      {text:"疯狂心疼你，发小作文控诉公司行程太满，主打虐粉固粉。",score:5},
-      {text:"屠版反黑开合所有嘲笑你的人，撕到全论坛不得安宁。",score:9},
+      {text:"默默陪着你但不多问，等你情绪自己过去。",score:0},
+      {text:"帮你复盘整件事的逻辑，最好下次怎么赢回来。",score:2},
+      {text:"觉得你太不容易了，疯狂给你塞好吃的好玩的补偿你，跟你一起痛骂对方。",score:5},
+      {text:"直接暴走，替你出头，甚至比你还生气。",score:9},
     ]
   },
   {
     dim:0,
-    text:"签售会上，面对唯粉「拉踩队友」的捧杀言论，你的反应是？",
+    text:"签售会上，如果唯粉在你面前说「拉踩队友」等言论，你的反应是？",
     options:[
-      {text:"假装没听懂，继续常规营业：「今天吃饭了吗？回去小心。」",score:0},
-      {text:"笑着转移话题：「大家今天都很辛苦，并且看心情拉队友麦姬。」",score:2},
-      {text:"事业心拉满：「我会不负期望让你们骄傲的！」",score:5},
-      {text:"爱听多说，其实自己都在养唯粉中",score:9},
+      {text:"脸色一正，立刻护短趁机卖下姬：「请不要这么说，她平时很照顾我的。」",score:0},
+      {text:"装现场太吵没听清，火速扯开话题：「啊？什么？没听清哎，对了你今天吃饭了吗！」",score:2},
+      {text:"偷着乐，还要装的很正经事业心拉满：「我会不负你的期望，让大家骄傲的！」",score:5},
+      {text:"明着乐，爱听多说，其实自己都在养唯粉中。",score:9},
     ]
   },
   {
     dim:0,
-    text:"你觉得你在饭圈的黑粉主要是哪一类？",
+    text:"你觉得你在饭圈主要会被哪种人黑？",
     options:[
       {text:"别家女团的粉，觉得我们团的数据威胁到了她们。",score:0},
-      {text:"基本上没什么黑粉，大家顶多嫌弃我没有爆点。",score:2},
-      {text:"某些特定群体，觉得我太叛逆、经常破坏爱豆规矩。",score:5},
-      {text:"队友粉，因为我太耀眼挡了她们的路。",score:9},
+      {text:"大多是恨铁不成钢的理中客路人，天天嫌弃我各种毛病。",score:2},
+      {text:"某些固定对家群体，觉得我太叛逆、惹了太多人。",score:5},
+      {text:"最大可能是队友粉，因为我太耀眼挡了她们的路。",score:9},
     ]
   },
-  // 风格 1
+  // 审美倾向 1
   {
     dim:1,
-    text:"公司让你定下一次回归的 MV 概念，你一眼相中哪个？",
+    text:"公司让你定下一次回归的 MV 概念，你更倾向哪个？",
     options:[
-      {text:"废弃医院、血浆，色调低沉像素差，看十遍都看不懂的暗黑剧情。",score:0},
+      {text:"废弃医院、血浆，色调暗沉像素差，看十遍都看不懂需要解析的剧情。",score:0},
       {text:"千禧年 Y2K 街头风，用复古 DV 拍摄，主打一个随意慵懒。",score:2},
-      {text:"重金砸出来的豪车、大牌高定，老娘天下最贵的财阀风。",score:5},
-      {text:"校园制服元气夏日风，旋律一响大家都能跟着跳的魔性编曲。",score:9},
+      {text:"重金砸出来的豪车、大牌高定，老娘天下最美最贵的财阀风。",score:5},
+      {text:"校园制服元气夏日风，阳间旋律，大家都能跟着跳的魔性编曲。",score:9},
     ]
   },
   {
     dim:1,
-    text:"关于打歌服的分配，你最能接受哪种设定？",
+    text:"你的 ins 画风更可能是？",
     options:[
-      {text:"把破布和金属拼在一起的先锋机能风，太艺术一般人看不懂。",score:0},
-      {text:"极其考验身材的不规则剪裁，带点生人勿近的拽姐味。",score:2},
-      {text:"全团统一色系的绝美仙女裙，每个人都美美不出错。",score:5},
-      {text:"一定要跟上潮流，最近流行什么元素就穿什么。",score:9},
+      {text:"艺术大过天，像是一本看不懂的独立艺术杂志内页，废片美学。",score:0},
+      {text:"主打活人感，随性生活图居多，很会拍很会调滤镜，偶尔夹几张仅自己 get 到的抽象图。",score:2},
+      {text:"营业照和日常生活照五五开，基本上是想到什么发什么。",score:5},
+      {text:"全是广告图和活动美图，欣赏颜值就完事儿了。",score:9},
     ]
   },
   {
     dim:1,
-    text:"你的主打歌在音源榜单上的表现通常是？",
+    text:"你的歌单里最多，你最爱听的是哪些类型的歌曲？",
     options:[
-      {text:"评价两极分化，路人觉得难听，但死忠粉听得疯狂上头。",score:0},
-      {text:"一开始没水花，后来靠某个出圈的舞台和口碑慢慢逆袭。",score:2},
-      {text:"空降前十，稳扎稳打，路人歌单里的常客。",score:5},
-      {text:"前奏一响直接空降榜首，洋抖cha个不停甚至楼下超市大妈都在放。",score:9},
+      {text:"很少人听过的地下乐队、前摇或实验电子乐以及优雅的古典乐。",score:0},
+      {text:"极具氛围感的爵士/r&b/嘻哈/独立音乐，或者某些冷门电影的原声带。",score:2},
+      {text:"华语乐坛的经典比如周王陶林，四大三小，香港天王天后，或者世界各地的大 diva 们。",score:5},
+      {text:"最近排行榜最火的歌，讲究旋律一定要朗朗上口。",score:9},
     ]
   },
-  // 人气 2
+  // 团队模式 2
   {
     dim:2,
-    text:"在团内的人气结构和镜头分配上，你觉得自己在队内更像是？",
+    text:"公司企划了一个小分队问你想不想加入，你会怎么想？",
     options:[
-      {text:"毫无记忆点的连体婴。我们的主打标签就是「团魂」，粉丝也是极端端水。一旦离开了团的头衔，很少人认识我们单拎出来的脸。",score:0},
-      {text:"全员皆大势的「群像大乱斗」。队内没有废物，每个人都有自己的过人之处，强强制衡。",score:2},
-      {text:"队内最耀眼的大 TOP 之一。在关键的红毯和年末大舞台上，品牌和导演肯定是先紧着我来挑。",score:5},
-      {text:"绝对的强势carry。我一断更物料，团的数据直接腰斩。没我拖飞机，这个团早就糊穿地心了。",score:9},
-    ]
-  },
-  {
-    dim:2,
-    text:"假设你们团今年出了一首大爆神曲，公司获得了大量资本注入，你觉得最终真实的资源分配会是？",
-    options:[
-      {text:"所有荣誉和资源只能以「团体名义」接。必须集体出动，代言费也要强制 N 等分，绝不允许任何人单飞冒尖。",score:0},
-      {text:"按成员标签精准分流红利。长得好的接美妆，综艺感强的上常驻，实力强的出 Solo，大家各凭本事。",score:2},
-      {text:"我稳稳拿走最大的那几块饼。虽然表面上还是「团体活动」，但整个圈子都心知肚明，我才是品牌最想要的大腿。",score:5},
-      {text:"金主爸爸眼里只有我。后续所有的高奢代言、影视邀约和单人封面，基本上都会越过团队直接砸在我一个人头上。",score:9},
+      {text:"负负得正，正正也得正，无论跟谁组反正横竖都是我不亏，欣然接受了。",score:0},
+      {text:"可以是可以，只是我想有队友选择权，选我喜欢的走强强联合的概念，合力把 IP 做大。",score:2},
+      {text:"骑驴找马中，应要我上的话我会参加，但只当这是自己 solo 的试验场，不会付出太多心力。",score:5},
+      {text:"告诉公司我独美，不想扶贫也不想准备小分队耽误我 solo。",score:9},
     ]
   },
   {
     dim:2,
-    text:"如果重返出道前夜，重新规划你的演艺生涯，你骨子里最渴望哪种剧本？",
+    text:"如果你所在的团陷入了「人带歌」还是「歌带人」的争议，你希望你处于哪种位置？",
     options:[
-      {text:"宁当凤尾：削尖脑袋挤进最顶配的三大社。不在乎自己能不能红，反正都是挣钱，只要挂着这个闪亮的出身混日子就足够了。",score:0},
-      {text:"差不多剧本：去一个比较大的公司有着中不溜的人气比较适合我，不喜欢压力太大。",score:2},
-      {text:"相信自己可以在团里混到前列，努力争取利用公司的资源把我捧出圈。",score:5},
-      {text:"搏一搏单车变摩托：万一我就是那个小公司当皇族。哪怕团糊，也是唯一的 C 位独一无二的主角呢。",score:9},
+      {text:"歌好最重要，歌带人是福气，躺着被带飞。",score:0},
+      {text:"属于互相成就，我把歌曲消化的很好，也是点睛之笔。",score:2},
+      {text:"歌确实不错，但 killing part 是我唱的，换个人这歌得糊一半。",score:5},
+      {text:"什么破歌，全靠我的音色和表现力硬抬进内环的，公司磕头吧。",score:9},
     ]
   },
-  // 吸粉 3
+  {
+    dim:2,
+    text:"脱开爱豆身份，假如你要加入一个大平台或者项目，你内心最向往哪种分配模式？",
+    options:[
+      {text:"枪打出头鸟，我希望大家的待遇和存在感都大差不差。不想有人特别冒尖，这样不公平。",score:0},
+      {text:"没有谁是永远的绝对核心，也不存在谁给谁兜底。大家实力相近，各凭本事发光，风水轮流转。",score:2},
+      {text:"我接受团队里必须有拿最大头红利的「大腿」存在。只要跟着他能把项目做成，让我稳稳喝到肉汤就行，说不定大腿就是我呢。",score:5},
+      {text:"团队里只有绝对的核心能独揽 90% 的荣誉。我愿意进这种局赌一把，相信我可以是那个万众瞩目的 chosen one，要么我愿赌服输。",score:9},
+    ]
+  },
+  // 核心竞争力 3
   {
     dim:3,
-    text:"你觉得让你一夜爆红、涨粉十万的名场面是？",
+    text:"脱开爱豆身份，你觉得在社会上混，能让你最终拿到结果的最核心要素是？",
     options:[
-      {text:"导播切到我的 3 秒钟结尾妖精，脸实在太伟大了。",score:0},
-      {text:"我的穿搭和身上那种不费力的松弛感，被全网扒同款。",score:2},
-      {text:"极其炸裂的刀群舞直拍，卡点精确到了头发丝。",score:5},
-      {text:"全开麦舞台上，伴奏停了，我临危不乱清唱了一段海豚音。",score:9},
+      {text:"天生的好皮囊或者不可复制的个人魅力。",score:0},
+      {text:"提供情绪价值的能力和让人相处舒服的高情商。",score:2},
+      {text:"日积月累的专业技能，技多不压身。",score:5},
+      {text:"极其变态的抗压能力和绝不认输的死磕精神。",score:9},
     ]
   },
   {
@@ -274,15 +274,15 @@ const QUESTIONS_POOL = [
   },
   {
     dim:3,
-    text:"遇到临时加塞的高难度通告，你的底气来源于？",
+    text:"公司把你塞进了一个极其热门的竞技类综艺，你打算怎么吸粉？",
     options:[
-      {text:"只要灯光打在我脸上，就算我站着不动收视率也稳了。",score:0},
-      {text:"我天生招人喜欢的性格，就算搞砸了大家也会觉得我很可爱。",score:2},
-      {text:"我极强的临场反应能力和绝不认输的胜负欲。",score:5},
-      {text:"我扎实练了多年的基本功，什么场子我镇不住？",score:9},
+      {text:"全程充当背景板不说话，只要有几个绝美的发呆特写镜头，就能上热搜营销「清冷神颜」。",score:0},
+      {text:"靠无厘头的废话和四次元人设，成为节目的「造梗机器」和 sense 担当。",score:2},
+      {text:"游戏玩着玩着就入戏了，靠态度吸粉。",score:5},
+      {text:"抓住一切机会努力表现，怎样水花大怎样来，并才艺展示自己的业务能力。",score:9},
     ]
   },
-];
+]
 
 // 打乱顺序（固定seed，每次一样，保证四轴各出3题均匀分布）
 const SHUFFLE_ORDER = [0,3,6,9,1,4,7,10,2,5,8,11];
@@ -290,54 +290,54 @@ const QUESTIONS = SHUFFLE_ORDER.map(i => QUESTIONS_POOL[i]);
 
 const GROUPS_RAW = [
   {name:"少女时代",levels:[5,5,4,4],destiny:{海外开花:1,高国民度:8,白月光:0,命硬:1,特立独行:0},
-   tag:"踩着尸体上位的顶级资本绞肉机",
-   verdict:"别装什么团魂炸裂，你的人生地图就是一路把对家踩进泥里爬上去的。国民度高到可以拿鼻孔看人，但粉圈私底下撕得血肉模糊。你就是那种在班里门门拿A、长得还美，但谁要是敢挡你的路，你会微笑着把她头拧下来的六边形恶女。"},
+   tag:"踩着同行上位的满级六边形女帝",
+   verdict:"如果把你丢进南韩造星厂，你拿的就是纯正的大女主剧本。别装什么岁月静好、团魂炸裂，你的人生地图就是一路把对家踩进泥里爬上去的甚至这个对家是你的队友。你业务全能、国民度高到可以拿鼻孔看人，但你家粉圈私底下为了争C位撕得血肉模糊。你就是那种销量最高、音源最爆，谁要是敢挡你的路，你会微笑着把她头拧下来的顶级绞肉机。"},
   {name:"f(x)",levels:[3,1,4,2],destiny:{海外开花:3,高国民度:0,白月光:7,命硬:0,特立独行:0},
-   tag:"SM高傲的实验废品，内娱死去的赛博亡妻",
-   verdict:"这辈子全靠「格调」硬撑，明明有个大TOP拖着飞机，却非要搞什么凡人听不懂的先锋艺术。结果呢？高贵地糊了。现在只剩下被全网当成白月光到处招魂。你的命就是：品味太好，运气太烂，活着的时候被嫌弃，死了之后被封神。"},
+   tag:"公司高傲的实验废品，全网死去的赛博亡妻",
+   verdict:"你在南韩的爱豆生涯全靠「格调」硬撑。明明有大TOP队友可以带飞全团，你们却非要搞什么凡人听不懂的先锋艺术概念。结果呢？成也萧何败也萧何，当打之年大众欣赏不到你们的美，没了才被全网当成白月光到处招魂。好在部分成员知名度不低还能混口饭吃有点存在感。你在南韩的命就是：品味太好，运气太烂，活着的时候被发配边疆，死了之后才被奉上神坛。"},
   {name:"2NE1",levels:[1,3,3,5],destiny:{海外开花:0,高国民度:0,白月光:3,命硬:0,特立独行:7},
-   tag:"掀翻牌桌的南韩丑丑花",
-   verdict:"长着一张防爆的脸，偏偏生了硬得能砸碎大字的实力。粉圈懒得撕逼，全靠你那一身老娘天下最拽的江湖气吸粉。别人混职场靠舔，你混职场靠掀桌子。虽然最后被公司强行发配边疆，但你留下的传说够现在的废物们学一辈子。"},
+   tag:"掀翻南韩牌桌的硬核丑花",
+   verdict:"如果当了爱豆，你绝对长着一张防爆的脸，偏偏生了硬得能砸碎大字的顶级实力。你家粉圈连打榜都懒得打，全靠你那一身老娘天下最拽的江湖气去镇场子。别的女团混圈子靠媚粉，你靠直接掀翻所有人的桌子。留下的拽姐传说，够后辈那群废物们学一辈子。"},
   {name:"TWICE",levels:[2,5,3,2],destiny:{海外开花:0,高国民度:7,白月光:0,命硬:3,特立独行:0},
-   tag:"流水线上的终极包身工",
-   verdict:"别扯什么音乐性，你的任务就是穿着打歌服在台上跳早操。靠着一己之力的氛围感在下沉市场疯狂吸血。国民度高得可怕，但说白了就是公司的完美摇钱树、没有感情的连轴转机器。职场里那个最卷、老板最喜欢，但也最没有自己生活的人就是你。"},
+   tag:"打歌流水线上的终极包身工",
+   verdict:"你在南韩的生存法则，别扯什么音乐性，你的任务就是一年回归四次，穿着花里胡哨的打歌服在台上跳早操。靠着元气氛围感疯狂吸引疲惫的广大打工人群体。你的国民度高得可怕，但说白了你就是公司的完美摇钱树、没有感情的连轴转机器。你是最卷、公司老板最喜欢，但也最没有自己私生活的女工爱豆。"},
   {name:"BLACKPINK",levels:[5,4,1,3],destiny:{海外开花:2,高国民度:7,白月光:0,命硬:0,特立独行:1},
-   tag:"顶奢包装下的毒蛊蛊王",
-   verdict:"团内人气均衡得像吃大锅饭，但唯粉之间每天都在上演甄嬛传，撕得连你妈都不认识。实力过得去就行，主要靠那种「老娘随便穿穿都比你贵」的氛围感割韭菜。你是高贵的YG大小姐，职场对你来说就是走秀，别人在卷生卷死，你在开香槟看唯粉互相问候祖宗。"},
+   tag:"顶奢包装下的高冷蛊王",
+   verdict:"如果在南韩出道，你这团内部人气均衡得像吃大锅饭，但你家唯粉之间每天都在上演甄嬛传，撕得连你妈都不认识。你的实力过得去就行，主要靠那种「老娘随便穿穿都比你一辈子赚得多」的氛围感拉踩所有人。你是高贵的YG大小姐，当爱豆对你来说就是走秀，对家在卷生卷死全开麦，你只需开香槟看着唯粉互相问候祖宗。"},
   {name:"Red Velvet",levels:[3,2,4,3],destiny:{海外开花:0,高国民度:0,白月光:7,命硬:3,特立独行:0},
    tag:"既要又要的半吊子神婆",
-   verdict:"你想赚口水歌的钱，又放不下SM高贵的概念身段。命是真的硬，经历过惊天大雷还能赖在二线顶端吃红利。现在成了大家口中的白月光，但仔细一品，你就是职场里那个能力不错、有点怪癖，但永远熬不到真·一把手的万年老二。"},
+   verdict:"你在南韩的处境很尴尬。你想赚口水歌的钱，又无法丢失高贵的概念身段。不过你的命是真的硬，经历过各种曲折，还能赖在二线顶端吃红利。你现在成了大家口中的白月光，但仔细一品，你就是那个能力不错、带点怪癖，却永远熬不到真·一代天后的差一步顶流。"},
   {name:"(G)I-DLE",levels:[3,4,3,2],destiny:{海外开花:3,高国民度:0,白月光:0,命硬:0,特立独行:7},
-   tag:"把反叛做成生意的土味太妹",
-   verdict:"嘴上喊着特立独行、老娘最拽，实际上写的全是最能迎合抖音短视频的大众洗脑神曲。靠着队长在前面疯狂输出概念，剩下的在后面吃「大女权」的红利。包装成野生恶女，其实比谁都懂怎么向流量低头变现。"},
+   tag:"把反叛做成生意的野生恶女",
+   verdict:"作为女团，你嘴上喊着特立独行、老娘最拽，实际上写的全是最能迎合短视频下沉市场的大众洗脑神曲。靠着队长在前面疯狂输出大女权概念，心安理得地吃红利。你包装成了叛逆的野生恶女，但其实整个南韩娱乐圈，比你更懂怎么向流量低头变现的爱豆，找不出第二个。"},
   {name:"aespa",levels:[5,2,2,3],destiny:{海外开花:2,高国民度:2,白月光:0,命硬:6,特立独行:0},
-   tag:"赛博斗兽场里的命硬蟑螂",
-   verdict:"粉圈生态恶臭到极点，全员下场扯头花，谁也不服谁。顶着个让人看不太懂的旷野AI概念一路被群嘲。但你这命是真他妈硬！被踩到泥里都能诈尸还魂。职场里你就是那个天天被同事暗算、被领导打压，但年末结算偏偏还能拿KPI第一的狠角色。"},
+   tag:"赛博斗兽场里的命硬铁娘子",
+   verdict:"你的女团人生可以说是天崩开局。粉圈生态恶臭到极点，全员扯头花，谁也不服谁。顶着个让人看不太懂的旷野AI概念，一路走来全网群嘲。但你这命是真他妈硬啊！被对家踩到泥里都能诈尸还魂，黑红也是红。你就是那种天天被全网暗算、被嘲假唱，但年末偏偏还能拿大赏的狠角色。"},
   {name:"NewJeans",levels:[2,2,3,1],destiny:{海外开花:1,高国民度:2,白月光:7,命硬:0,特立独行:0},
-   tag:"氛围感诈骗犯，昙花一现的赛博白月光",
-   verdict:"实力是什么？不需要！只要会甩头发、会装出毫不费力的Y2K小众感就能骗到全世界。粉圈还在装无辜小白兔，其实背靠大树好乘凉。剥开这层昂贵的复古白月光滤镜，你就是职场里那个什么脏活都不干、纯靠PPT排版好看和老板宠爱拿A的终极资源咖。"},
+   tag:"纯靠老天爷赏饭的氛围感诈骗犯",
+   verdict:"开麦实力是什么？不需要！你只要大喊attention甩甩头发、装出毫不费力的Y2K少女感就能骗到全世界的钞票。你家粉圈还在装无辜小白兔，其实背靠大树好乘凉。剥开这层昂贵的复古白月光滤镜，你就是南韩那个什么脏活都不干、纯靠制作人努力，直接空降榜首的终极资源咖。只是小心乐极生悲的急速跌落"},
   {name:"IVE",levels:[4,4,5,1],destiny:{海外开花:0,高国民度:9,白月光:0,命硬:1,特立独行:0},
-   tag:"财阀千金和她的伴舞们",
-   verdict:"这就叫一个人的江山，剩下的人只配当背景板。实力烂得明目张胆，全靠那张伟大但做作的脸和无死角的「娇妻氛围感」硬抗。偏偏大众就吃这一套，国民度高到气死对家。你就是那个凭一己之力让整个团队鸡犬升天，还要每天发通稿艳压所有人的顶级茶系皇太后。"},
+   tag:"千金和她的伴舞们",
+   verdict:"是五女一是一人江山也是二人转，剩下的人只配当背景板。你的硬实力烂得明目张胆，全靠那张伟大但做作的脸硬抗。偏偏大众就吃这一套，你是小学生统领，国民度高到气死对家。诞生在此团不成功便成仁。"},
   {name:"LE SSERAFIM",levels:[4,3,4,3],destiny:{海外开花:2,高国民度:0,白月光:0,命硬:8,特立独行:0},
    tag:"硬拗大女主的科切拉现眼包",
-   verdict:"全身上下嘴最硬，实力跟不上野心，还要天天买大字报吹嘘自己是「铁血女帝」。粉圈也是一点就炸的火药桶。但不得不服你的命是真硬，被全网开黑嘲讽到体无完肤，还能像没事人一样继续发歌圈钱。主打一个脸皮比城墙厚。"},
+   verdict:"全身上下嘴最硬，实力跟不上野心，还要天天买大字报吹嘘自己是「铁血女帝」。但不得不服你的命是真硬，在国际舞台上被全网开黑、嘲讽到体无完肤，回国还能像没事人一样继续发歌还能有不错的成绩。主打一个脸皮比城墙厚。"},
   {name:"NMIXX",levels:[2,1,3,5],destiny:{海外开花:1,高国民度:0,白月光:0,命硬:4,特立独行:5},
    tag:"端着金饭碗要饭的硬核糊逼",
-   verdict:"全南韩最变态的硬实力，全浪费在最让人耳朵流产的拼接神婆歌上。粉圈想撕逼都撕不起来，因为实在太糊了。天天吹全开麦，结果除了实力一无所有。你就像是那个清北毕业的高材生，非要去天桥底下变魔术，骄傲、牛逼，但就是赚不到钱。"},
+   verdict:"如果让你出道，你拥有全南韩最变态的硬核实力，却全浪费在最让人耳朵流产的拼接神婆歌上。你家粉圈连想撕逼都撕不起来，因为实在太糊了。你家天天吹全开麦，结果除了实力一无所有。你就像是那种顶级学院派的高材生，非要去天桥底下变魔术，高贵、骄傲，但就是死活赚不到钱。"},
   {name:"MAMAMOO",levels:[2,3,2,5],destiny:{海外开花:0,高国民度:0,白月光:0,命硬:0,特立独行:10},
    tag:"长相防爆、实力平权的南韩纪委",
-   verdict:"粉圈极其自命清高，天天拉踩别的爱豆「我们是真歌手」。人气罕见的一碗水端平，因为大家都没长一张皇族脸，只能凭嗓子吃饭。职场里天天素颜乱穿衣服，但一做汇报就能把所有花瓶按在地上摩擦的技术总监就是你。"},
+   verdict:"在南韩当爱豆，你家粉圈极其自命清高，天天拉踩别的女团「我们才是真歌手」。你们的人气罕见的一碗水端平，因为大家都没长一张皇族脸，只能凭嗓子吃饭。你敢天天素颜乱穿衣服上班，但只要一开麦，就能把所有花瓶按在地上摩擦。"},
   {name:"KARA",levels:[1,4,3,3],destiny:{海外开花:7,高国民度:2,白月光:1,命硬:0,特立独行:0},
-   tag:"墙内开花墙外香的日本捞金客",
-   verdict:"在本土被对家压得喘不过气，反手就跑去海外当了土皇帝。粉圈佛系得像一群大爷大妈，主打一个陪伴。音乐全是没心没肺的摇花手神曲。职场里那种在总部被排挤，结果主动申请外派，最后在分公司赚得盆满钵满的逍遥赢家就是你。"},
-  {name:"Miss A",levels:[2,4,5,3],destiny:{海外开花:0,高国民度:4,白月光:3,命硬:3,特立独行:0},
-   tag:"裴秀智和她的三个洗脚婢",
-   verdict:"别给我整什么花里胡哨的维度分析，你这团的唯一特点就是一超多死。人气结构极其畸形，拖飞机拖到航空母舰都要原地坠毁。选到这个结果的你认命吧：你的人生要么是那个吸干全组资源的大魔王，要么就是连年底绩效都不配拿的透明背景板。"},
+   tag:"墙内开花墙外香的海外捞金客",
+   verdict:"在韩国本土被对家压得喘不过气，你反手就跑去日本当了土皇帝。你家粉圈佛系得像一群大爷大妈，主打一个陪伴。你的音乐全是不费脑子的摇花手洗脑神曲。你就是那种在总部被排挤，结果主动申请外派，最后在海外分公司赚得盆满钵满、让对家眼红的逍遥赢家。"},
+  {name:"Miss A",levels:[2,4,5,3],destiny:{海外开花:0,高国民度:0,白月光:0,命硬:0,特立独行:0},
+   tag:"初恋和她的N个伴舞",
+   verdict:"不整什么花里胡哨的维度分析了，你这团在南韩的唯一特点就是「一超多死」。人气结构极其畸形，拖飞机拖到航空母舰都要原地坠毁。选到这个结果的你认命吧：你重生要么是那个吸干全组大血、被公司捧上天的大魔王；要么就是那个到解散都没几个人叫得出名字的隐形伴舞。"},
   {name:"IZ*ONE",levels:[4,4,4,2],destiny:{海外开花:0,高国民度:3,白月光:7,命硬:0,特立独行:0},
-   tag:"靠偷人生逆天改命的造假神颜团（暗号：3700）",
-   verdict:"虽然是人为操纵出来的拼图产物，但就是能靠绝佳的氛围感把韭菜迷得神魂颠倒。粉圈互扯头花的战斗力极强，现在解散了反倒成了全体选秀粉心里的赛博白月光。你的职场剧本就是：哪怕履历是注水的，只要站在台上的那一刻足够光鲜亮丽，你就能骗过所有人美美跳槽。"},
-];
+   tag:"靠偷人生逆天改命的造假神颜团",
+   verdict:"虽然你的出道位是人为操纵出来的「拼图产物」，但你就是能靠绝佳的打歌服和无敌的氛围感把大家迷得神魂颠倒。你家唯粉互扯头花的战斗力极强。现在解散了，反倒成了全体选秀粉心里的赛博白月光。你的剧本就是：哪怕履历是注水的，只要站在台上的那一刻足够光鲜亮丽，你就能骗过所有人美美飞升。"},
+]
 
 function getFinalLevel(sum){
   if(sum<=6) return 1;
@@ -345,6 +345,17 @@ function getFinalLevel(sum){
   if(sum<=13) return 3;
   if(sum<=16) return 4;
   return 5;
+}
+
+function getPreciseLevel(sum){
+  const scoreMap={
+    0:0.6, 2:0.8, 4:1.0, 5:1.2, 6:1.4,
+    7:1.8, 9:2.2,
+    10:2.6, 11:2.8, 12:3.2, 13:3.4,
+    14:3.6, 15:4.0, 16:4.4,
+    18:4.6, 19:4.8, 20:5.0, 23:5.2, 27:5.4
+  };
+  return scoreMap[sum]??3.0;
 }
 
 function calcDist(u,m){return u.reduce((s,v,i)=>s+(v-m[i])**2,0);}
@@ -389,12 +400,34 @@ function calcResult(){
   showScreen('loading');
   dimRaws=[0,0,0,0];
   ans.forEach((a,qi)=>{const q=QUESTIONS[qi];dimRaws[q.dim]+=q.options[a].score;});
+  // 第一步：粗粒度层级（1-5整数），用于主匹配
   const userLevels=dimRaws.map(r=>getFinalLevel(r));
+  // 第二步：精确小数层级，用于平局时二次区分
+  const userPrecise=dimRaws.map(r=>getPreciseLevel(r));
   setTimeout(()=>{
+    // 粗匹配：找最小整数距离
     let minDist=Infinity;
     GROUPS_RAW.forEach(g=>{const d=calcDist(userLevels,g.levels);if(d<minDist)minDist=d;});
-    const winners=GROUPS_RAW.filter(g=>calcDist(userLevels,g.levels)===minDist);
-    showResult(winners,userLevels);
+    let candidates=GROUPS_RAW.filter(g=>calcDist(userLevels,g.levels)===minDist);
+    // 精匹配：候选团超过1个时，用精确坐标再算一次距离
+    if(candidates.length>1){
+      let minDist2=Infinity;
+      candidates.forEach(g=>{
+        const precLevels=g.levels.map(lv=>{
+          // 把团的整数层级映射到该层级的中间精确值
+          const midMap={1:1.0, 2:2.0, 3:3.0, 4:4.0, 5:5.0};
+          return midMap[lv];
+        });
+        const d=calcDist(userPrecise,precLevels);
+        if(d<minDist2)minDist2=d;
+      });
+      const refined=candidates.filter(g=>{
+        const precLevels=g.levels.map(lv=>({1:1.0,2:2.0,3:3.0,4:4.0,5:5.0}[lv]));
+        return Math.abs(calcDist(userPrecise,precLevels)-minDist2)<1e-9;
+      });
+      candidates=refined;
+    }
+    showResult(candidates,userLevels);
   },1800);
 }
 
@@ -409,27 +442,25 @@ function showResult(winners,userLevels){
     main.innerHTML=`<div class="multi-badge">你是多面体女团</div><p style="font-size:13px;color:var(--muted);margin-bottom:1rem">你在 ${winners.length} 个团之间等距游走，谁都像你，谁又都不完全是你。</p><div class="multi-cards">${winners.map(w=>`<div class="multi-card"><div class="multi-card-name">${w.name}</div><div class="multi-card-tag">${w.tag}</div><div class="multi-card-verdict">${w.verdict}</div></div>`).join('')}</div>`;
   }
 
-  // 四维画像条形图（修复版）
-  document.getElementById('dimsCard').innerHTML=DIM_NAMES.map((n,i)=>`
-    <div class="dim-row">
-      <span class="dim-name">${n}</span>
-      <div class="dim-inner">
-        <div class="dim-track"><div class="dim-fill" id="df${i}" style="width:0%"></div></div>
-        <div class="dim-poles"><span>${DIM_LOW[i]}</span><span>${DIM_HIGH[i]}</span></div>
-      </div>
-    </div>`).join('');
+  // 雷达图
+  const radarVals = userLevels.map(lv => (lv - 1) / 4); // 归一化到 0-1
+  document.getElementById('dimsCard').innerHTML = buildRadar(radarVals);
+  // 动画：延迟后替换为实际数据
+  setTimeout(() => {
+    document.getElementById('dimsCard').innerHTML = buildRadar(radarVals, true);
+  }, 80);
 
-  // 命运标签：合并所有winners的命运分数
   const dt={};DESTINY_NAMES.forEach(k=>dt[k]=0);
   winners.forEach(w=>DESTINY_NAMES.forEach(k=>dt[k]+=(w.destiny[k]||0)));
   const dSum=Object.values(dt).reduce((a,b)=>a+b,0);
+  const isMissA=dSum===0;
+  const mainD=isMissA?null:Object.entries(dt).sort((a,b)=>b[1]-a[1])[0][0];
 
-  // 检查是否Miss A特殊情况（所有命运均为0，或dSum为0）
-  const isMissA = dSum===0;
-  const mainD = isMissA ? null : Object.entries(dt).sort((a,b)=>b[1]-a[1])[0][0];
+  destinyOpen=false;
+  document.getElementById('destinyDetail').classList.remove('open');
+  document.getElementById('destinyToggle').textContent='点击查看详情 ▾';
 
   if(isMissA){
-    // Miss A：没有命运标签，直接显示特殊文案
     document.getElementById('destinyMain').textContent='托飞机型';
     document.getElementById('destinyToggle').style.display='none';
     document.getElementById('destinyCard').style.cursor='default';
@@ -444,15 +475,14 @@ function showResult(winners,userLevels){
     document.getElementById('destinyMain').textContent=mainD;
     document.getElementById('destinyToggle').style.display='';
     document.getElementById('destinyCard').style.cursor='pointer';
-    // 只展示分数>0的命运标签，按分数从高到低排，先介绍最高的
-    const activeDestinies=Object.entries(dt)
-      .filter(([k,v])=>v>0)
-      .sort((a,b)=>b[1]-a[1]);
+    const activeDestinies=Object.entries(dt).filter(([k,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+    const pctMap={};
+    activeDestinies.forEach(([k,v])=>pctMap[k]=Math.round(v/dSum*100));
     document.getElementById('destinyDetail').innerHTML=`
       <div class="destiny-tag-list">
         ${activeDestinies.map(([k])=>`
           <div class="destiny-tag-item">
-            <div class="destiny-tag-name">${k}</div>
+            <div class="destiny-tag-name">${k} <span style="font-size:10px;color:var(--muted);font-weight:400;letter-spacing:1px">${pctMap[k]}%</span></div>
             <div class="destiny-tag-desc">${DESTINY_REVIEWS[k]}</div>
           </div>`).join('')}
       </div>`;
@@ -460,20 +490,10 @@ function showResult(winners,userLevels){
 
   showScreen('result');
 
-  // 修复：条形图动画需要在DOM渲染后触发
-  setTimeout(()=>{
-    userLevels.forEach((lv,i)=>{
-      setTimeout(()=>{
-        const el=document.getElementById('df'+i);
-        if(el) el.style.width=((lv-1)/4*100)+'%';
-      },i*150);
-    });
-  },50);
-
   document.getElementById('shareBtn').onclick=function(){
     const names=winners.map(w=>w.name).join(' × ');
     const destinyText=isMissA?'托飞机型':mainD;
-    const text=`【假如你是K-pop女团】\n我是：${names}\n命运：${destinyText}\n\n你是哪个团？`;
+    const text=`【你的人生拿了哪个K-pop女团剧本？】\n我是：${names}\n命运：${destinyText}\n\n你是哪个团？`;
     navigator.clipboard.writeText(text).then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制结果文案',2000);});
   };
 }
@@ -485,23 +505,100 @@ function toggleDestiny(){
   document.getElementById('destinyToggle').textContent=destinyOpen?'收起 ▴':'点击查看详情 ▾';
 }
 
-function resetQuiz(){startQuiz();}
+function buildRadar(vals, animate) {
+  const CX = 160, CY = 160, R = 100;
+  const n = 4;
+  // 4轴角度：上/右下/左下/左上，顺时针从顶部开始
+  const angles = [
+    -Math.PI / 2,           // 顶 (撕逼体制)
+    -Math.PI / 2 + Math.PI * 2 / 4,  // 右 (大众)
+    -Math.PI / 2 + Math.PI * 4 / 4,  // 底 (单核拖飞机)
+    -Math.PI / 2 + Math.PI * 6 / 4,  // 左 (靠硬实力)
+  ];
 
-// 访问计数器（使用 countapi.xyz 免费服务）
-// 首次使用前需要在 countapi.xyz 注册一个 namespace/key
-// 或者直接用下面的方式自动创建
-(function(){
-  // 将 YOUR_NAMESPACE 改成你的 GitHub 用户名，YOUR_KEY 改成你想要的 key 名
-  const NAMESPACE = 'chq10chh';
-  const KEY = 'kpop-test-visits';
-  fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
-    .then(r=>r.json())
-    .then(data=>{
-      const el=document.getElementById('visitCounter');
-      if(el && data.value) el.textContent=`已有 ${data.value.toLocaleString()} 人参与测试`;
-    })
-    .catch(()=>{}); // 静默失败，不影响页面
-})();
+  // 标签位置（稍微往外推）
+  const labelR = R + 34;
+  const labelPos = angles.map(a => ({
+    x: CX + labelR * Math.cos(a),
+    y: CY + labelR * Math.sin(a),
+  }));
+
+  // 标签文字（两行：中文 + 英文）
+  const labels = [
+    {zh:'撕逼体制', en:'Social Field'},
+    {zh:'大众', en:'Aesthetics'},
+    {zh:'单核托飞机', en:'Team Mode'},
+    {zh:'靠硬实力', en:'Core Strength'},
+  ];
+
+  // 网格多边形（20% 40% 60% 80% 100%）
+  function gridPoly(ratio) {
+    return angles.map(a =>
+      `${CX + R * ratio * Math.cos(a)},${CY + R * ratio * Math.sin(a)}`
+    ).join(' ');
+  }
+
+  // 用户数据多边形
+  const userPts = angles.map((a, i) => {
+    const r = Math.max(0.05, vals[i]) * R;
+    return `${CX + r * Math.cos(a)},${CY + r * Math.sin(a)}`;
+  }).join(' ');
+
+  // 轴线（从中心到顶点）
+  const axes = angles.map(a =>
+    `<line x1="${CX}" y1="${CY}" x2="${CX + R * Math.cos(a)}" y2="${CY + R * Math.sin(a)}"
+      stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`
+  ).join('');
+
+  // 网格
+  const grids = [0.2, 0.4, 0.6, 0.8, 1].map(r =>
+    `<polygon points="${gridPoly(r)}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`
+  ).join('');
+
+  // 顶点圆点
+  const dots = angles.map((a, i) => {
+    const r = Math.max(0.05, vals[i]) * R;
+    return `<circle cx="${CX + r * Math.cos(a)}" cy="${CY + r * Math.sin(a)}"
+      r="4" fill="#e8c97a" opacity="0.9"/>`;
+  }).join('');
+
+  // 标签SVG文字
+  const labelsSVG = labelPos.map((pos, i) => {
+    const l = labels[i];
+    // 文字对齐：左/右/居中
+    const anchor = pos.x < CX - 10 ? 'end' : pos.x > CX + 10 ? 'start' : 'middle';
+    const yOffset = pos.y < CY ? -8 : 8;
+    return `
+      <text x="${pos.x}" y="${pos.y + yOffset - 7}" text-anchor="${anchor}"
+        font-family="Noto Sans SC,sans-serif" font-size="11" fill="rgba(240,236,228,0.7)"
+        font-weight="500">${l.zh}</text>
+      <text x="${pos.x}" y="${pos.y + yOffset + 6}" text-anchor="${anchor}"
+        font-family="Noto Sans SC,sans-serif" font-size="9" fill="rgba(136,136,136,0.6)">${l.en}</text>`;
+  }).join('');
+
+  // CSS动画
+  const animStyle = animate ? '' : `
+    <style>
+      #radarUser { opacity: 0; animation: radarIn 0.6s ease forwards; }
+      #radarDots { opacity: 0; animation: radarIn 0.6s ease 0.3s forwards; }
+      @keyframes radarIn { to { opacity: 1; } }
+    </style>`;
+
+  return `<div class="radar-wrap">
+    <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+      ${animStyle}
+      ${grids}
+      ${axes}
+      <polygon id="radarUser" points="${userPts}"
+        fill="rgba(232,201,122,0.15)" stroke="#e8c97a" stroke-width="1.5"
+        stroke-linejoin="round"/>
+      <g id="radarDots">${dots}</g>
+      ${labelsSVG}
+    </svg>
+  </div>`;
+}
+
+function resetQuiz(){startQuiz();}
 </script>
 </body>
 </html>
