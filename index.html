@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>假如你是K-pop现役女团</title>
+<title>假如你是K-pop女团</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0e0e0e;--bg2:#161616;--bg3:#1e1e1e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0ece4;--muted:#888;--accent:#e8c97a;--accent2:#c85a5a;--accent3:#7ab8e8;}
@@ -68,8 +68,8 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
 .dim-row:last-child{margin-bottom:0;}
 .dim-name{font-size:11px;color:var(--muted);width:56px;min-width:56px;text-align:right;}
 .dim-inner{flex:1;}
-.dim-track{height:3px;background:rgba(255,255,255,0.06);margin-bottom:3px;}
-.dim-fill{height:100%;background:var(--accent);transition:width 0.8s ease;}
+.dim-track{height:3px;background:rgba(255,255,255,0.06);margin-bottom:3px;position:relative;}
+.dim-fill{position:absolute;top:0;left:0;height:3px;background:var(--accent);transition:width 0.8s ease;}
 .dim-poles{display:flex;justify-content:space-between;font-size:9px;color:rgba(136,136,136,0.5);}
 .destiny-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;cursor:pointer;}
 .destiny-card-header{display:flex;justify-content:space-between;align-items:center;}
@@ -77,17 +77,17 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
 .destiny-toggle{font-size:11px;color:var(--muted);}
 .destiny-detail{margin-top:1.2rem;display:none;border-top:1px solid var(--border);padding-top:1.2rem;}
 .destiny-detail.open{display:block;}
-.destiny-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.destiny-bar-label{font-size:11px;color:var(--muted);width:68px;min-width:68px;text-align:right;}
-.destiny-bar-track{flex:1;height:3px;background:rgba(255,255,255,0.06);}
-.destiny-bar-fill{height:100%;background:var(--accent3);transition:width 0.8s ease;}
-.destiny-bar-val{font-size:10px;color:var(--muted);width:28px;text-align:right;}
-.destiny-review{margin-top:1rem;font-size:13px;line-height:1.85;color:rgba(240,236,228,0.75);}
+.destiny-tag-list{display:flex;flex-direction:column;gap:1rem;margin-top:1.2rem;}
+.destiny-tag-item{border-top:1px solid var(--border);padding-top:1rem;}
+.destiny-tag-item:first-child{border-top:none;padding-top:0;}
+.destiny-tag-name{font-size:11px;letter-spacing:2px;color:var(--accent3);margin-bottom:0.4rem;text-transform:uppercase;}
+.destiny-tag-desc{font-size:13px;line-height:1.85;color:rgba(240,236,228,0.75);}
 .divider{height:1px;background:var(--border);margin:1.5rem 0;}
 .btn-share{display:block;width:100%;margin-top:1rem;background:none;border:1px solid var(--accent);padding:13px;font-size:13px;cursor:pointer;color:var(--accent);font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;letter-spacing:2px;}
 .btn-share:hover{background:var(--accent);color:#0e0e0e;}
 .btn-retry{display:block;width:100%;margin-top:8px;background:none;border:1px solid var(--border);padding:13px;font-size:13px;cursor:pointer;color:var(--muted);font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;letter-spacing:1px;}
 .btn-retry:hover{border-color:var(--border2);color:var(--text);}
+.intro-counter{margin-top:0.6rem;font-size:11px;color:rgba(136,136,136,0.5);letter-spacing:1px;}
 @media(max-width:480px){#quiz,#result{padding:1.5rem 1rem 3rem;}}
 </style>
 </head>
@@ -99,6 +99,7 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text
   <p class="intro-sub">12道娱乐圈情境题<br>精准匹配你的女团命运轨迹</p>
   <button class="btn-start" onclick="startQuiz()">开始测试</button>
   <p class="intro-note">约 3～4 分钟完成</p>
+  <p class="intro-counter" id="visitCounter"></p>
 </div>
 
 <div id="quiz" class="screen">
@@ -265,9 +266,9 @@ const QUESTIONS_POOL = [
     dim:3,
     text:"如果明天就要回归初舞台了，你今晚在干嘛？",
     options:[
-      {text:"早早敷上面膜睡觉，明天必须保证绝佳的皮肤状态和不浮粉。",score:0},
-      {text:"听点轻音乐放松心情，告诉自己「随便玩玩享受舞台就好」。",score:2},
-      {text:"反复观看彩排录像，疯狂做表情管理的笔记。",score:5},
+      {text:"早早敷上面膜睡觉，明天必须保证绝佳的皮肤状态和不浮肿。",score:0},
+      {text:"听点音乐放松心情，告诉自己「随便玩玩享受舞台就好」。",score:2},
+      {text:"反复观看彩排录像，研究如何更好的表情管理。",score:5},
       {text:"在练习室死磕最后一个高音，不到完美绝不睡觉。",score:9},
     ]
   },
@@ -408,32 +409,71 @@ function showResult(winners,userLevels){
     main.innerHTML=`<div class="multi-badge">你是多面体女团</div><p style="font-size:13px;color:var(--muted);margin-bottom:1rem">你在 ${winners.length} 个团之间等距游走，谁都像你，谁又都不完全是你。</p><div class="multi-cards">${winners.map(w=>`<div class="multi-card"><div class="multi-card-name">${w.name}</div><div class="multi-card-tag">${w.tag}</div><div class="multi-card-verdict">${w.verdict}</div></div>`).join('')}</div>`;
   }
 
+  // 四维画像条形图（修复版）
   document.getElementById('dimsCard').innerHTML=DIM_NAMES.map((n,i)=>`
     <div class="dim-row">
       <span class="dim-name">${n}</span>
       <div class="dim-inner">
-        <div class="dim-track"><div class="dim-fill" id="df${i}"></div></div>
+        <div class="dim-track"><div class="dim-fill" id="df${i}" style="width:0%"></div></div>
         <div class="dim-poles"><span>${DIM_LOW[i]}</span><span>${DIM_HIGH[i]}</span></div>
       </div>
     </div>`).join('');
 
+  // 命运标签：合并所有winners的命运分数
   const dt={};DESTINY_NAMES.forEach(k=>dt[k]=0);
   winners.forEach(w=>DESTINY_NAMES.forEach(k=>dt[k]+=(w.destiny[k]||0)));
   const dSum=Object.values(dt).reduce((a,b)=>a+b,0);
-  const mainD=Object.entries(dt).sort((a,b)=>b[1]-a[1])[0][0];
-  document.getElementById('destinyMain').textContent=mainD;
-  document.getElementById('destinyDetail').innerHTML=
-    DESTINY_NAMES.map(k=>{const pct=dSum>0?Math.round(dt[k]/dSum*100):0;return `<div class="destiny-bar-row"><span class="destiny-bar-label">${k}</span><div class="destiny-bar-track"><div class="destiny-bar-fill" id="dest_${k.replace(/\s/g,'_')}" style="width:0%"></div></div><span class="destiny-bar-val">${pct}%</span></div>`;}).join('')+`<div class="destiny-review">${DESTINY_REVIEWS[mainD]}</div>`;
+
+  // 检查是否Miss A特殊情况（所有命运均为0，或dSum为0）
+  const isMissA = dSum===0;
+  const mainD = isMissA ? null : Object.entries(dt).sort((a,b)=>b[1]-a[1])[0][0];
+
+  if(isMissA){
+    // Miss A：没有命运标签，直接显示特殊文案
+    document.getElementById('destinyMain').textContent='托飞机型';
+    document.getElementById('destinyToggle').style.display='none';
+    document.getElementById('destinyCard').style.cursor='default';
+    document.getElementById('destinyDetail').classList.add('open');
+    document.getElementById('destinyDetail').innerHTML=`
+      <div class="destiny-tag-list">
+        <div class="destiny-tag-item">
+          <div class="destiny-tag-desc">你这团的命运没有什么特别的标签，唯一的标签就是「一超多死」。人气结构极其畸形，全团的天花板由一个人独自撑着，其他人连名字都不配被记住。你的人生要么是那个吸干全组资源的大魔王，要么就是连年底绩效都不配拿的透明背景板——没有中间地带。</div>
+        </div>
+      </div>`;
+  } else {
+    document.getElementById('destinyMain').textContent=mainD;
+    document.getElementById('destinyToggle').style.display='';
+    document.getElementById('destinyCard').style.cursor='pointer';
+    // 只展示分数>0的命运标签，按分数从高到低排，先介绍最高的
+    const activeDestinies=Object.entries(dt)
+      .filter(([k,v])=>v>0)
+      .sort((a,b)=>b[1]-a[1]);
+    document.getElementById('destinyDetail').innerHTML=`
+      <div class="destiny-tag-list">
+        ${activeDestinies.map(([k])=>`
+          <div class="destiny-tag-item">
+            <div class="destiny-tag-name">${k}</div>
+            <div class="destiny-tag-desc">${DESTINY_REVIEWS[k]}</div>
+          </div>`).join('')}
+      </div>`;
+  }
 
   showScreen('result');
-  requestAnimationFrame(()=>{
-    userLevels.forEach((lv,i)=>setTimeout(()=>{const el=document.getElementById('df'+i);if(el)el.style.width=((lv-1)/4*100)+'%';},i*150));
-    DESTINY_NAMES.forEach((k,i)=>setTimeout(()=>{const pct=dSum>0?Math.round(dt[k]/dSum*100):0;const el=document.getElementById('dest_'+k.replace(/\s/g,'_'));if(el)el.style.width=pct+'%';},i*100+400));
-  });
+
+  // 修复：条形图动画需要在DOM渲染后触发
+  setTimeout(()=>{
+    userLevels.forEach((lv,i)=>{
+      setTimeout(()=>{
+        const el=document.getElementById('df'+i);
+        if(el) el.style.width=((lv-1)/4*100)+'%';
+      },i*150);
+    });
+  },50);
 
   document.getElementById('shareBtn').onclick=function(){
     const names=winners.map(w=>w.name).join(' × ');
-    const text=`【假如你是K-pop现役女团】\n我是：${names}\n命运：${mainD}\n\n你是哪个团？`;
+    const destinyText=isMissA?'托飞机型':mainD;
+    const text=`【假如你是K-pop女团】\n我是：${names}\n命运：${destinyText}\n\n你是哪个团？`;
     navigator.clipboard.writeText(text).then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制结果文案',2000);});
   };
 }
@@ -446,6 +486,22 @@ function toggleDestiny(){
 }
 
 function resetQuiz(){startQuiz();}
+
+// 访问计数器（使用 countapi.xyz 免费服务）
+// 首次使用前需要在 countapi.xyz 注册一个 namespace/key
+// 或者直接用下面的方式自动创建
+(function(){
+  // 将 YOUR_NAMESPACE 改成你的 GitHub 用户名，YOUR_KEY 改成你想要的 key 名
+  const NAMESPACE = 'chq10chh';
+  const KEY = 'kpop-test-visits';
+  fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
+    .then(r=>r.json())
+    .then(data=>{
+      const el=document.getElementById('visitCounter');
+      if(el && data.value) el.textContent=`已有 ${data.value.toLocaleString()} 人参与测试`;
+    })
+    .catch(()=>{}); // 静默失败，不影响页面
+})();
 </script>
 </body>
 </html>
