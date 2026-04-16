@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>假如你是K-pop现役女团</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e0e0e;--bg2:#161616;--bg3:#1e1e1e;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0ece4;--muted:#888;--accent:#e8c97a;--accent2:#c85a5a;--accent3:#7ab8e8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+.screen{display:none;min-height:100vh;}
+.screen.active{display:flex;flex-direction:column;}
+
+#intro{align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;position:relative;}
+#intro::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,0.015) 40px,rgba(255,255,255,0.015) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,0.015) 40px,rgba(255,255,255,0.015) 41px);pointer-events:none;}
+.intro-eyebrow{font-size:10px;letter-spacing:5px;color:var(--muted);text-transform:uppercase;margin-bottom:2rem;}
+.intro-title{font-family:'Noto Serif SC',serif;font-size:clamp(2rem,7vw,3.8rem);font-weight:900;line-height:1.1;margin-bottom:1rem;color:var(--text);}
+.intro-title em{color:var(--accent);font-style:normal;}
+.intro-sub{font-size:14px;color:var(--muted);line-height:1.9;max-width:360px;margin:0 auto 2.5rem;}
+.btn-start{background:var(--accent);color:#0e0e0e;border:none;padding:15px 48px;font-size:15px;font-weight:700;font-family:'Noto Sans SC',sans-serif;cursor:pointer;letter-spacing:2px;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all 0.2s;}
+.btn-start:hover{background:#f5d98a;transform:translateY(-2px);}
+.intro-note{margin-top:1.2rem;font-size:11px;color:var(--muted);}
+
+#quiz{padding:2rem 1.5rem;max-width:640px;margin:0 auto;width:100%;}
+.quiz-header{margin-bottom:2rem;}
+.progress-bar{height:2px;background:rgba(255,255,255,0.08);margin-bottom:10px;}
+.progress-fill{height:100%;background:var(--accent);transition:width 0.4s ease;}
+.progress-text{font-size:11px;color:var(--muted);letter-spacing:2px;}
+.question-card{background:var(--bg2);border:1px solid var(--border);padding:2rem;margin-bottom:1.5rem;position:relative;}
+.question-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);}
+.q-num{font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:1rem;}
+.q-text{font-family:'Noto Serif SC',serif;font-size:clamp(15px,3.5vw,18px);line-height:1.7;color:var(--text);}
+.options{display:flex;flex-direction:column;gap:8px;}
+.option{background:var(--bg2);border:1px solid var(--border);padding:14px 18px;font-size:13px;line-height:1.65;color:var(--muted);cursor:pointer;text-align:left;font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;display:flex;align-items:flex-start;gap:12px;}
+.option:hover{border-color:var(--border2);color:var(--text);background:var(--bg3);}
+.option.selected{border-color:var(--accent);color:var(--text);background:rgba(232,201,122,0.06);}
+.opt-letter{width:20px;min-width:20px;height:20px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);margin-top:2px;flex-shrink:0;}
+.option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#0e0e0e;font-weight:700;}
+.quiz-nav{display:flex;gap:10px;justify-content:flex-end;margin-top:1.5rem;}
+.btn-back{background:none;border:1px solid var(--border);padding:10px 22px;font-size:13px;cursor:pointer;color:var(--muted);font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;}
+.btn-back:hover{border-color:var(--border2);color:var(--text);}
+.btn-back:disabled{opacity:0.2;cursor:default;}
+.btn-next{background:none;border:1px solid var(--accent);padding:10px 28px;font-size:13px;cursor:pointer;color:var(--accent);font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;opacity:0.3;pointer-events:none;letter-spacing:1px;}
+.btn-next.ready{opacity:1;pointer-events:auto;}
+.btn-next.ready:hover{background:var(--accent);color:#0e0e0e;}
+
+#loading{align-items:center;justify-content:center;text-align:center;padding:3rem;}
+.loading-bar{width:200px;height:2px;background:var(--bg3);margin:0 auto 1.5rem;overflow:hidden;}
+.loading-bar-fill{height:100%;background:var(--accent);animation:loadbar 1.8s ease-in-out infinite;}
+@keyframes loadbar{0%{width:0;margin-left:0;}50%{width:100%;margin-left:0;}100%{width:0;margin-left:100%;}}
+.loading-text{font-size:12px;color:var(--muted);letter-spacing:3px;}
+
+#result{padding:2rem 1.5rem 5rem;max-width:640px;margin:0 auto;width:100%;}
+.result-eyebrow{font-size:10px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:1.5rem;padding-top:0.5rem;}
+.result-name{font-family:'Noto Serif SC',serif;font-size:clamp(2.4rem,9vw,4rem);font-weight:900;color:var(--accent);line-height:1;margin-bottom:0.3rem;}
+.result-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:1.5rem;}
+.result-verdict{font-size:14px;line-height:1.95;color:rgba(240,236,228,0.85);border-left:2px solid var(--accent);padding-left:1.2rem;margin-bottom:2rem;}
+.multi-badge{display:inline-block;background:var(--accent2);color:#fff;font-size:11px;padding:4px 12px;letter-spacing:2px;margin-bottom:1rem;}
+.multi-cards{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
+.multi-card{background:var(--bg2);border:1px solid var(--border);padding:1.2rem 1.5rem;}
+.multi-card-name{font-family:'Noto Serif SC',serif;font-size:1.6rem;font-weight:900;color:var(--accent);margin-bottom:0.3rem;}
+.multi-card-tag{font-size:12px;color:var(--muted);margin-bottom:0.8rem;}
+.multi-card-verdict{font-size:13px;line-height:1.85;color:rgba(240,236,228,0.8);}
+.section-label{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;}
+.dims-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;}
+.dim-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.dim-row:last-child{margin-bottom:0;}
+.dim-name{font-size:11px;color:var(--muted);width:56px;min-width:56px;text-align:right;}
+.dim-inner{flex:1;}
+.dim-track{height:3px;background:rgba(255,255,255,0.06);margin-bottom:3px;}
+.dim-fill{height:100%;background:var(--accent);transition:width 0.8s ease;}
+.dim-poles{display:flex;justify-content:space-between;font-size:9px;color:rgba(136,136,136,0.5);}
+.destiny-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;cursor:pointer;}
+.destiny-card-header{display:flex;justify-content:space-between;align-items:center;}
+.destiny-main{font-size:16px;font-weight:700;color:var(--accent);letter-spacing:1px;}
+.destiny-toggle{font-size:11px;color:var(--muted);}
+.destiny-detail{margin-top:1.2rem;display:none;border-top:1px solid var(--border);padding-top:1.2rem;}
+.destiny-detail.open{display:block;}
+.destiny-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.destiny-bar-label{font-size:11px;color:var(--muted);width:68px;min-width:68px;text-align:right;}
+.destiny-bar-track{flex:1;height:3px;background:rgba(255,255,255,0.06);}
+.destiny-bar-fill{height:100%;background:var(--accent3);transition:width 0.8s ease;}
+.destiny-bar-val{font-size:10px;color:var(--muted);width:28px;text-align:right;}
+.destiny-review{margin-top:1rem;font-size:13px;line-height:1.85;color:rgba(240,236,228,0.75);}
+.divider{height:1px;background:var(--border);margin:1.5rem 0;}
+.btn-share{display:block;width:100%;margin-top:1rem;background:none;border:1px solid var(--accent);padding:13px;font-size:13px;cursor:pointer;color:var(--accent);font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;letter-spacing:2px;}
+.btn-share:hover{background:var(--accent);color:#0e0e0e;}
+.btn-retry{display:block;width:100%;margin-top:8px;background:none;border:1px solid var(--border);padding:13px;font-size:13px;cursor:pointer;color:var(--muted);font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;letter-spacing:1px;}
+.btn-retry:hover{border-color:var(--border2);color:var(--text);}
+@media(max-width:480px){#quiz,#result{padding:1.5rem 1rem 3rem;}}
+</style>
+</head>
+<body>
+
+<div id="intro" class="screen active">
+  <p class="intro-eyebrow">K-pop 女团人格测试</p>
+  <h1 class="intro-title">假如你是<br><em>K-pop 现役女团</em></h1>
+  <p class="intro-sub">12道娱乐圈情境题<br>精准匹配你的女团命运轨迹</p>
+  <button class="btn-start" onclick="startQuiz()">开始测试</button>
+  <p class="intro-note">约 3～4 分钟完成</p>
+</div>
+
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <p class="progress-text" id="progressText">1 / 12</p>
+  </div>
+  <div class="question-card">
+    <p class="q-num" id="qNum">Q 01</p>
+    <p class="q-text" id="qText"></p>
+  </div>
+  <div class="options" id="optionsWrap"></div>
+  <div class="quiz-nav">
+    <button class="btn-back" id="btnBack" onclick="goBack()" disabled>← 上一题</button>
+    <button class="btn-next" id="btnNext" onclick="goNext()">下一题 →</button>
+  </div>
+</div>
+
+<div id="loading" class="screen">
+  <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  <p class="loading-text">正在查档…</p>
+</div>
+
+<div id="result" class="screen">
+  <p class="result-eyebrow" id="rEyebrow">测试结果</p>
+  <div id="resultMain"></div>
+  <div class="divider"></div>
+  <p class="section-label">你的四维画像</p>
+  <div class="dims-card" id="dimsCard"></div>
+  <p class="section-label" style="margin-top:1.5rem">命运标签</p>
+  <div class="destiny-card" id="destinyCard" onclick="toggleDestiny()">
+    <div class="destiny-card-header">
+      <span class="destiny-main" id="destinyMain"></span>
+      <span class="destiny-toggle" id="destinyToggle">点击查看详情 ▾</span>
+    </div>
+    <div class="destiny-detail" id="destinyDetail"></div>
+  </div>
+  <button class="btn-share" id="shareBtn">复制结果文案</button>
+  <button class="btn-retry" onclick="resetQuiz()">再测一次</button>
+</div>
+
+<script>
+const DIM_NAMES  = ["粉圈生态","风格概念","人气结构","吸粉方法"];
+const DIM_LOW    = ["和谐","小众","均衡","氛围感"];
+const DIM_HIGH   = ["秒表","大众","拖飞机","硬实力"];
+const DESTINY_NAMES = ["海外开花","高国民度","白月光","命硬","特立独行"];
+
+const DESTINY_REVIEWS = {
+  海外开花:"你的人生地图上，家门口的路一直修不好，但出了国反而一路开绿灯。本土被嫌弃，海外被封神，完美诠释了「墙内开花墙外香」的终极爽文剧本。",
+  高国民度:"连你妈的广场舞同伴都认识你。这条路走的是规模效应——先用大众审美打穿下沉市场，再靠国民度反向收割高端资源。简单粗暴，但有效。",
+  白月光:"你的名字永远出现在「如果当年没解散/没出走就好了」的祭文里。活着的时候被嫌弃，死了之后被封神，这套剧本古今中外通杀。",
+  命硬:"天雷打不死，黑料压不垮，争议绕不过，但你就是他妈的还在这里。职场里你是那种被同事坑、被领导架空、被媒体黑，年末KPI还是第一的蟑螂本蟑螂。",
+  特立独行:"你的存在本身就是对「按规矩来」的冒犯。你不是不会媚俗，你是懒得媚俗。那些骂你的人私下全在翻你的作品，这才是最高级的赢。"
+};
+
+// 12道题打乱顺序（dim标注对应哪个维度）
+// 维度：0=粉圈 1=风格 2=人气 3=吸粉
+const QUESTIONS_POOL = [
+  // 粉圈 0
+  {
+    dim:0,
+    text:"你的直拍里有一个小失误，对家粉趁机发黑帖群嘲，你的粉圈通常会怎么反击？",
+    options:[
+      {text:"相信你的路人盘，随便对家怎么跳脚，反正歌出圈就行。",score:0},
+      {text:"整理你以前的神级舞台和澄清长图，在评论区理智控评。",score:2},
+      {text:"疯狂心疼你，发小作文控诉公司行程太满，主打虐粉固粉。",score:5},
+      {text:"屠版反黑，人肉对家粉头，撕到全论坛不得安宁。",score:9},
+    ]
+  },
+  {
+    dim:0,
+    text:"签售会上，面对唯粉「拉踩队友」的捧杀言论，你的反应是？",
+    options:[
+      {text:"假装没听懂，继续常规营业：「今天吃饭了吗？回去小心。」",score:0},
+      {text:"笑着转移话题：「大家今天都很辛苦，也要多爱其他成员哦。」",score:2},
+      {text:"事业心拉满：「我会爬到最高的地方，让你们骄傲。」",score:5},
+      {text:"顺势虐粉：「我只有你们了，你们一定要一直陪着我。」",score:9},
+    ]
+  },
+  {
+    dim:0,
+    text:"你觉得你在饭圈的黑粉主要是哪一类？",
+    options:[
+      {text:"别家大女团的粉，觉得我们团的数据威胁到了她们。",score:0},
+      {text:"基本上没什么黑粉，大家顶多嫌弃我没有爆点。",score:2},
+      {text:"某些特定群体，觉得我太叛逆、经常破坏爱豆规矩。",score:5},
+      {text:"队友粉，因为我太耀眼挡了她们的路。",score:9},
+    ]
+  },
+  // 风格 1
+  {
+    dim:1,
+    text:"公司让你定下一次回归的 MV 概念，你一眼相中哪个？",
+    options:[
+      {text:"废弃医院、血浆、解谜元素，看十遍都看不懂的暗黑剧情。",score:0},
+      {text:"千禧年 Y2K 街头风，用复古 DV 拍摄，主打一个随意慵懒。",score:2},
+      {text:"重金砸出来的豪车、大牌高定，老娘天下最贵的财阀风。",score:5},
+      {text:"啦啦队服或校园制服，旋律一响大家都能跟着跳的元气神曲。",score:9},
+    ]
+  },
+  {
+    dim:1,
+    text:"关于打歌服的分配，你最能接受哪种设定？",
+    options:[
+      {text:"把破布和金属拼在一起的先锋机能风，普通人穿像疯子。",score:0},
+      {text:"极其考验身材的不规则剪裁，带点生人勿近的拽姐味。",score:2},
+      {text:"全团统一色系的绝美仙女裙，整整齐齐不出错。",score:5},
+      {text:"最近短视频流行什么就穿什么，直接上身快消基础款。",score:9},
+    ]
+  },
+  {
+    dim:1,
+    text:"你的主打歌在音源榜单上的表现通常是？",
+    options:[
+      {text:"评价两极分化，路人觉得难听，但死忠粉听得疯狂上头。",score:0},
+      {text:"一开始没水花，后来靠某个出圈的舞台和口碑慢慢逆袭。",score:2},
+      {text:"空降前十，稳扎稳打，路人歌单里的常客。",score:5},
+      {text:"前奏一响直接空降榜首，楼下超市大妈都在放。",score:9},
+    ]
+  },
+  // 人气 2
+  {
+    dim:2,
+    text:"在团内的人气结构和镜头分配上，你觉得自己在队内扮演的最真实的「存在感」是？",
+    options:[
+      {text:"毫无记忆点的连体婴。我们的主打标签就是「团魂」，粉丝也是极端端水。一旦离开了团的头衔，根本没人认识我们单拎出来的脸。",score:0},
+      {text:"全员皆大势的「群像大乱斗」。队内没有废物，每个人都有自己的逆天名场面，强强制衡。",score:2},
+      {text:"队内最耀眼的大 TOP 之一。在关键的红毯和年末大舞台上，品牌和导演肯定是先紧着我来挑。",score:5},
+      {text:"绝对的灵魂大女主。我一断更物料，团的数据直接腰斩。没我在前面开疆拓土，这个团早就糊穿地心了。",score:9},
+    ]
+  },
+  {
+    dim:2,
+    text:"假设你们团今年出了一首大爆神曲，公司获得了大量资本注入，你觉得最终真实的资源分配会是？",
+    options:[
+      {text:"所有荣誉和资源只能以「团体名义」接。必须集体出动，代言费也要强制 N 等分，绝不允许任何人单飞冒尖。",score:0},
+      {text:"按成员标签精准分流红利。长得好的接美妆，综艺感强的上常驻，实力强的出 Solo，大家各凭本事。",score:2},
+      {text:"我稳稳拿走最大的那几块饼。虽然表面上还是「团体活动」，但整个圈子都心知肚明，我才是品牌最想要的大腿。",score:5},
+      {text:"金主爸爸眼里只有我。后续所有的高奢代言、影视邀约和单人封面，基本上都会越过团队直接砸在我一个人头上。",score:9},
+    ]
+  },
+  {
+    dim:2,
+    text:"如果重返出道前夜，重新规划你的演艺生涯，你骨子里最渴望哪种剧本？",
+    options:[
+      {text:"绝对的「凤尾」剧本：削尖脑袋挤进最顶配的三大社。不在乎自己能不能红，只要挂着这个闪亮的出身厂牌混日子就足够了。",score:0},
+      {text:"「怪物新人」内卷局剧本：去一个极度内卷、全员王牌的出道预备组，大家全凭硬实力单干拼出道位。",score:2},
+      {text:"聪明的「大腿」剧本：去一个有红利期的中坚公司当绝对核心，利用公司的资源把我捧出圈。",score:5},
+      {text:"绝对的「鸡头」剧本：宁可去个快倒闭的小公司当皇族。哪怕团糊，我也必须是唯一的 C 位，老娘就是要当独一无二的主角。",score:9},
+    ]
+  },
+  // 吸粉 3
+  {
+    dim:3,
+    text:"你觉得让你一夜爆红、涨粉十万的名场面是？",
+    options:[
+      {text:"导播切到我的 3 秒钟结尾妖精，脸实在太伟大了。",score:0},
+      {text:"我的穿搭和身上那种不费力的松弛感，被全网扒同款。",score:2},
+      {text:"极其炸裂的刀群舞直拍，卡点精确到了头发丝。",score:5},
+      {text:"全开麦舞台上，伴奏停了，我临危不乱清唱了一段海豚音。",score:9},
+    ]
+  },
+  {
+    dim:3,
+    text:"如果明天就要回归初舞台了，你今晚在干嘛？",
+    options:[
+      {text:"早早敷上面膜睡觉，明天必须保证绝佳的皮肤状态和不浮粉。",score:0},
+      {text:"听点轻音乐放松心情，告诉自己「随便玩玩享受舞台就好」。",score:2},
+      {text:"反复观看彩排录像，疯狂做表情管理的笔记。",score:5},
+      {text:"在练习室死磕最后一个高音，不到完美绝不睡觉。",score:9},
+    ]
+  },
+  {
+    dim:3,
+    text:"遇到临时加塞的高难度通告，你的底气来源于？",
+    options:[
+      {text:"只要灯光打在我脸上，就算我站着不动收视率也稳了。",score:0},
+      {text:"我天生招人喜欢的性格，就算搞砸了大家也会觉得我很可爱。",score:2},
+      {text:"我极强的临场反应能力和绝不认输的胜负欲。",score:5},
+      {text:"我扎实练了八年的基本功，什么场子我镇不住？",score:9},
+    ]
+  },
+];
+
+// 打乱顺序（固定seed，每次一样，保证四轴各出3题均匀分布）
+const SHUFFLE_ORDER = [0,3,6,9,1,4,7,10,2,5,8,11];
+const QUESTIONS = SHUFFLE_ORDER.map(i => QUESTIONS_POOL[i]);
+
+const GROUPS_RAW = [
+  {name:"少女时代",levels:[5,5,4,4],destiny:{海外开花:1,高国民度:8,白月光:0,命硬:1,特立独行:0},
+   tag:"踩着尸体上位的顶级资本绞肉机",
+   verdict:"别装什么团魂炸裂，你的人生地图就是一路把对家踩进泥里爬上去的。国民度高到可以拿鼻孔看人，但粉圈私底下撕得血肉模糊。你就是那种在班里门门拿A、长得还美，但谁要是敢挡你的路，你会微笑着把她头拧下来的六边形恶女。"},
+  {name:"f(x)",levels:[3,1,4,2],destiny:{海外开花:3,高国民度:0,白月光:7,命硬:0,特立独行:0},
+   tag:"SM高傲的实验废品，内娱死去的赛博亡妻",
+   verdict:"这辈子全靠「格调」硬撑，明明有个大TOP拖着飞机，却非要搞什么凡人听不懂的先锋艺术。结果呢？高贵地糊了。现在只剩下被全网当成白月光到处招魂。你的命就是：品味太好，运气太烂，活着的时候被嫌弃，死了之后被封神。"},
+  {name:"2NE1",levels:[1,3,3,5],destiny:{海外开花:0,高国民度:0,白月光:3,命硬:0,特立独行:7},
+   tag:"掀翻牌桌的南韩丑丑花",
+   verdict:"长着一张防爆的脸，偏偏生了硬得能砸碎大字的实力。粉圈懒得撕逼，全靠你那一身老娘天下最拽的江湖气吸粉。别人混职场靠舔，你混职场靠掀桌子。虽然最后被公司强行发配边疆，但你留下的传说够现在的废物们学一辈子。"},
+  {name:"TWICE",levels:[2,5,3,2],destiny:{海外开花:0,高国民度:7,白月光:0,命硬:3,特立独行:0},
+   tag:"流水线上的终极包身工",
+   verdict:"别扯什么音乐性，你的任务就是穿着打歌服在台上跳早操。靠着一己之力的氛围感在下沉市场疯狂吸血。国民度高得可怕，但说白了就是公司的完美摇钱树、没有感情的连轴转机器。职场里那个最卷、老板最喜欢，但也最没有自己生活的人就是你。"},
+  {name:"BLACKPINK",levels:[5,4,1,3],destiny:{海外开花:2,高国民度:7,白月光:0,命硬:0,特立独行:1},
+   tag:"顶奢包装下的毒蛊蛊王",
+   verdict:"团内人气均衡得像吃大锅饭，但唯粉之间每天都在上演甄嬛传，撕得连你妈都不认识。实力过得去就行，主要靠那种「老娘随便穿穿都比你贵」的氛围感割韭菜。你是高贵的YG大小姐，职场对你来说就是走秀，别人在卷生卷死，你在开香槟看唯粉互相问候祖宗。"},
+  {name:"Red Velvet",levels:[3,2,4,3],destiny:{海外开花:0,高国民度:0,白月光:7,命硬:3,特立独行:0},
+   tag:"既要又要的半吊子神婆",
+   verdict:"你想赚口水歌的钱，又放不下SM高贵的概念身段。命是真的硬，经历过惊天大雷还能赖在二线顶端吃红利。现在成了大家口中的白月光，但仔细一品，你就是职场里那个能力不错、有点怪癖，但永远熬不到真·一把手的万年老二。"},
+  {name:"(G)I-DLE",levels:[3,4,3,2],destiny:{海外开花:3,高国民度:0,白月光:0,命硬:0,特立独行:7},
+   tag:"把反叛做成生意的土味太妹",
+   verdict:"嘴上喊着特立独行、老娘最拽，实际上写的全是最能迎合抖音短视频的大众洗脑神曲。靠着队长在前面疯狂输出概念，剩下的在后面吃「大女权」的红利。包装成野生恶女，其实比谁都懂怎么向流量低头变现。"},
+  {name:"aespa",levels:[5,2,2,3],destiny:{海外开花:2,高国民度:2,白月光:0,命硬:6,特立独行:0},
+   tag:"赛博斗兽场里的命硬蟑螂",
+   verdict:"粉圈生态恶臭到极点，全员下场扯头花，谁也不服谁。顶着个让人看不太懂的旷野AI概念一路被群嘲。但你这命是真他妈硬！被踩到泥里都能诈尸还魂。职场里你就是那个天天被同事暗算、被领导打压，但年末结算偏偏还能拿KPI第一的狠角色。"},
+  {name:"NewJeans",levels:[2,2,3,1],destiny:{海外开花:1,高国民度:2,白月光:7,命硬:0,特立独行:0},
+   tag:"氛围感诈骗犯，昙花一现的赛博白月光",
+   verdict:"实力是什么？不需要！只要会甩头发、会装出毫不费力的Y2K小众感就能骗到全世界。粉圈还在装无辜小白兔，其实背靠大树好乘凉。剥开这层昂贵的复古白月光滤镜，你就是职场里那个什么脏活都不干、纯靠PPT排版好看和老板宠爱拿A的终极资源咖。"},
+  {name:"IVE",levels:[4,4,5,1],destiny:{海外开花:0,高国民度:9,白月光:0,命硬:1,特立独行:0},
+   tag:"财阀千金和她的伴舞们",
+   verdict:"这就叫一个人的江山，剩下的人只配当背景板。实力烂得明目张胆，全靠那张伟大但做作的脸和无死角的「娇妻氛围感」硬抗。偏偏大众就吃这一套，国民度高到气死对家。你就是那个凭一己之力让整个团队鸡犬升天，还要每天发通稿艳压所有人的顶级茶系皇太后。"},
+  {name:"LE SSERAFIM",levels:[4,3,4,3],destiny:{海外开花:2,高国民度:0,白月光:0,命硬:8,特立独行:0},
+   tag:"硬拗大女主的科切拉现眼包",
+   verdict:"全身上下嘴最硬，实力跟不上野心，还要天天买大字报吹嘘自己是「铁血女帝」。粉圈也是一点就炸的火药桶。但不得不服你的命是真硬，被全网开黑嘲讽到体无完肤，还能像没事人一样继续发歌圈钱。主打一个脸皮比城墙厚。"},
+  {name:"NMIXX",levels:[2,1,3,5],destiny:{海外开花:1,高国民度:0,白月光:0,命硬:4,特立独行:5},
+   tag:"端着金饭碗要饭的硬核糊逼",
+   verdict:"全南韩最变态的硬实力，全浪费在最让人耳朵流产的拼接神婆歌上。粉圈想撕逼都撕不起来，因为实在太糊了。天天吹全开麦，结果除了实力一无所有。你就像是那个清北毕业的高材生，非要去天桥底下变魔术，骄傲、牛逼，但就是赚不到钱。"},
+  {name:"MAMAMOO",levels:[2,3,2,5],destiny:{海外开花:0,高国民度:0,白月光:0,命硬:0,特立独行:10},
+   tag:"长相防爆、实力平权的南韩纪委",
+   verdict:"粉圈极其自命清高，天天拉踩别的爱豆「我们是真歌手」。人气罕见的一碗水端平，因为大家都没长一张皇族脸，只能凭嗓子吃饭。职场里天天素颜乱穿衣服，但一做汇报就能把所有花瓶按在地上摩擦的技术总监就是你。"},
+  {name:"KARA",levels:[1,4,3,3],destiny:{海外开花:7,高国民度:2,白月光:1,命硬:0,特立独行:0},
+   tag:"墙内开花墙外香的日本捞金客",
+   verdict:"在本土被对家压得喘不过气，反手就跑去海外当了土皇帝。粉圈佛系得像一群大爷大妈，主打一个陪伴。音乐全是没心没肺的摇花手神曲。职场里那种在总部被排挤，结果主动申请外派，最后在分公司赚得盆满钵满的逍遥赢家就是你。"},
+  {name:"Miss A",levels:[2,4,5,3],destiny:{海外开花:0,高国民度:4,白月光:3,命硬:3,特立独行:0},
+   tag:"裴秀智和她的三个洗脚婢",
+   verdict:"别给我整什么花里胡哨的维度分析，你这团的唯一特点就是一超多死。人气结构极其畸形，拖飞机拖到航空母舰都要原地坠毁。选到这个结果的你认命吧：你的人生要么是那个吸干全组资源的大魔王，要么就是连年底绩效都不配拿的透明背景板。"},
+  {name:"IZ*ONE",levels:[4,4,4,2],destiny:{海外开花:0,高国民度:3,白月光:7,命硬:0,特立独行:0},
+   tag:"靠偷人生逆天改命的造假神颜团（暗号：3700）",
+   verdict:"虽然是人为操纵出来的拼图产物，但就是能靠绝佳的氛围感把韭菜迷得神魂颠倒。粉圈互扯头花的战斗力极强，现在解散了反倒成了全体选秀粉心里的赛博白月光。你的职场剧本就是：哪怕履历是注水的，只要站在台上的那一刻足够光鲜亮丽，你就能骗过所有人美美跳槽。"},
+];
+
+function getFinalLevel(sum){
+  if(sum<=6) return 1;
+  if(sum<=9) return 2;
+  if(sum<=13) return 3;
+  if(sum<=16) return 4;
+  return 5;
+}
+
+function calcDist(u,m){return u.reduce((s,v,i)=>s+(v-m[i])**2,0);}
+
+let cur=0, ans=new Array(12).fill(null), dimRaws=[0,0,0,0];
+
+function startQuiz(){cur=0;ans=new Array(12).fill(null);dimRaws=[0,0,0,0];renderQ();showScreen('quiz');}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function renderQ(){
+  const q=QUESTIONS[cur];
+  document.getElementById('qNum').textContent='Q '+String(cur+1).padStart(2,'0');
+  document.getElementById('qText').textContent=q.text;
+  document.getElementById('progressText').textContent=(cur+1)+' / 12';
+  document.getElementById('progressFill').style.width=((cur+1)/12*100)+'%';
+  document.getElementById('btnBack').disabled=cur===0;
+  const wrap=document.getElementById('optionsWrap');
+  wrap.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option'+(ans[cur]===i?' selected':'');
+    btn.innerHTML=`<span class="opt-letter">${l}</span><span>${q.options[i].text}</span>`;
+    btn.onclick=()=>pick(i);
+    wrap.appendChild(btn);
+  });
+  const nb=document.getElementById('btnNext');
+  nb.textContent=cur===11?'查看结果 →':'下一题 →';
+  nb.classList.toggle('ready',ans[cur]!==null);
+}
+
+function pick(i){
+  ans[cur]=i;
+  document.querySelectorAll('.option').forEach((b,idx)=>b.classList.toggle('selected',idx===i));
+  document.getElementById('btnNext').classList.add('ready');
+}
+
+function goNext(){if(ans[cur]===null)return;if(cur<11){cur++;renderQ();}else calcResult();}
+function goBack(){if(cur>0){cur--;renderQ();}}
+
+function calcResult(){
+  showScreen('loading');
+  dimRaws=[0,0,0,0];
+  ans.forEach((a,qi)=>{const q=QUESTIONS[qi];dimRaws[q.dim]+=q.options[a].score;});
+  const userLevels=dimRaws.map(r=>getFinalLevel(r));
+  setTimeout(()=>{
+    let minDist=Infinity;
+    GROUPS_RAW.forEach(g=>{const d=calcDist(userLevels,g.levels);if(d<minDist)minDist=d;});
+    const winners=GROUPS_RAW.filter(g=>calcDist(userLevels,g.levels)===minDist);
+    showResult(winners,userLevels);
+  },1800);
+}
+
+function showResult(winners,userLevels){
+  const isMulti=winners.length>1;
+  document.getElementById('rEyebrow').textContent=isMulti?`测试结果 · 隐藏款解锁 · 共 ${winners.length} 面`:'测试结果';
+  const main=document.getElementById('resultMain');
+  if(!isMulti){
+    const w=winners[0];
+    main.innerHTML=`<div class="result-name">${w.name}</div><div class="result-tag">${w.tag}</div><div class="result-verdict">${w.verdict}</div>`;
+  } else {
+    main.innerHTML=`<div class="multi-badge">你是多面体女团</div><p style="font-size:13px;color:var(--muted);margin-bottom:1rem">你在 ${winners.length} 个团之间等距游走，谁都像你，谁又都不完全是你。</p><div class="multi-cards">${winners.map(w=>`<div class="multi-card"><div class="multi-card-name">${w.name}</div><div class="multi-card-tag">${w.tag}</div><div class="multi-card-verdict">${w.verdict}</div></div>`).join('')}</div>`;
+  }
+
+  document.getElementById('dimsCard').innerHTML=DIM_NAMES.map((n,i)=>`
+    <div class="dim-row">
+      <span class="dim-name">${n}</span>
+      <div class="dim-inner">
+        <div class="dim-track"><div class="dim-fill" id="df${i}"></div></div>
+        <div class="dim-poles"><span>${DIM_LOW[i]}</span><span>${DIM_HIGH[i]}</span></div>
+      </div>
+    </div>`).join('');
+
+  const dt={};DESTINY_NAMES.forEach(k=>dt[k]=0);
+  winners.forEach(w=>DESTINY_NAMES.forEach(k=>dt[k]+=(w.destiny[k]||0)));
+  const dSum=Object.values(dt).reduce((a,b)=>a+b,0);
+  const mainD=Object.entries(dt).sort((a,b)=>b[1]-a[1])[0][0];
+  document.getElementById('destinyMain').textContent=mainD;
+  document.getElementById('destinyDetail').innerHTML=
+    DESTINY_NAMES.map(k=>{const pct=dSum>0?Math.round(dt[k]/dSum*100):0;return `<div class="destiny-bar-row"><span class="destiny-bar-label">${k}</span><div class="destiny-bar-track"><div class="destiny-bar-fill" id="dest_${k.replace(/\s/g,'_')}" style="width:0%"></div></div><span class="destiny-bar-val">${pct}%</span></div>`;}).join('')+`<div class="destiny-review">${DESTINY_REVIEWS[mainD]}</div>`;
+
+  showScreen('result');
+  requestAnimationFrame(()=>{
+    userLevels.forEach((lv,i)=>setTimeout(()=>{const el=document.getElementById('df'+i);if(el)el.style.width=((lv-1)/4*100)+'%';},i*150));
+    DESTINY_NAMES.forEach((k,i)=>setTimeout(()=>{const pct=dSum>0?Math.round(dt[k]/dSum*100):0;const el=document.getElementById('dest_'+k.replace(/\s/g,'_'));if(el)el.style.width=pct+'%';},i*100+400));
+  });
+
+  document.getElementById('shareBtn').onclick=function(){
+    const names=winners.map(w=>w.name).join(' × ');
+    const text=`【假如你是K-pop现役女团】\n我是：${names}\n命运：${mainD}\n\n你是哪个团？`;
+    navigator.clipboard.writeText(text).then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制结果文案',2000);});
+  };
+}
+
+let destinyOpen=false;
+function toggleDestiny(){
+  destinyOpen=!destinyOpen;
+  document.getElementById('destinyDetail').classList.toggle('open',destinyOpen);
+  document.getElementById('destinyToggle').textContent=destinyOpen?'收起 ▴':'点击查看详情 ▾';
+}
+
+function resetQuiz(){startQuiz();}
+</script>
+</body>
+</html>
