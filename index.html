@@ -184,7 +184,7 @@ const QUESTIONS_POOL = [
     text:"你觉得你在饭圈主要会被哪种人黑？",
     options:[
       {text:"别家女团的粉，觉得我们团的数据威胁到了她们。",score:0},
-      {text:"大多是恨铁不成钢的理中客路人，天天嫌弃我各种毛病。",score:2},
+      {text:"大多是恨铁不成钢的理中客路人和团婊，天天嫌弃我各种毛病。",score:2},
       {text:"某些固定对家群体，觉得我太叛逆、惹了太多人。",score:5},
       {text:"最大可能是队友粉，因为我太耀眼挡了她们的路。",score:9},
     ]
@@ -285,7 +285,7 @@ const QUESTIONS_POOL = [
 ]
 
 // 打乱顺序（固定seed，每次一样，保证四轴各出3题均匀分布）
-const SHUFFLE_ORDER = [0,3,6,9,1,4,7,10,2,5,8,11];
+const SHUFFLE_ORDER = [6,3,0,9,1,4,7,10,2,5,8,11];
 const QUESTIONS = SHUFFLE_ORDER.map(i => QUESTIONS_POOL[i]);
 
 const GROUPS_RAW = [
